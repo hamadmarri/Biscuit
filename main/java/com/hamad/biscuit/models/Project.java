@@ -9,7 +9,7 @@ import java.util.List;
 public class Project {
 	public String name;
 	public String description;
-	Backlog backlog;
+	public Backlog backlog = new Backlog();
 	List<Release> releases;
 	List<Sprint> sprints;
 

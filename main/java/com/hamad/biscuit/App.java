@@ -10,8 +10,7 @@ import com.hamad.biscuit.views.Dashboard;
 public class App {
 
 	public static void main(String[] args) {
-		initialize();
-		test1();
+		 initialize();
 	}
 
 
@@ -24,10 +23,7 @@ public class App {
 		}
 
 		Root.getInstance().save();
-	}
 
-
-	private static void test1() {
 		Dashboard db = new Dashboard();
 		db.view();
 	}

@@ -28,22 +28,21 @@ public class Dashboard extends View {
 
 
 	@Override
-	boolean executeCommand(String line) throws IOException {
+	boolean executeCommand(String[] words) throws IOException {
 
-		if (line.equals("summary")) {
+		if (words[0].equals("summary")) {
 
-		} else if (line.equals("projects")) {
+		} else if (words[0].equals("projects")) {
 
-		} else if (line.equals("alerts")) {
+		} else if (words[0].equals("alerts")) {
 
-		} else if (line.equals("check_alert")) {
+		} else if (words[0].equals("check_alert")) {
 
-		} else if (line.equals("search")) {
+		} else if (words[0].equals("search")) {
 
-		} else if (line.equals("help")) {
+		} else if (words[0].equals("help")) {
 
 		} else {
-			String words[] = line.split("\\s+");
 
 			if (words[0].equals("go_to")) {
 				// "project#1", "users", "contacts", "groups"

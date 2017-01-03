@@ -98,11 +98,15 @@ public abstract class View {
 
 				if (line.isEmpty()) {
 					continue;
-				} else if (checkIfUnivesalCommand(line)) {
+				}
+
+				String words[] = line.split("\\s+");
+
+				if (checkIfUnivesalCommand(words)) {
 					continue;
 				}
 
-				if (!executeCommand(line)) {
+				if (!executeCommand(words)) {
 					System.out.println("invalid command!");
 				}
 			}
@@ -113,17 +117,15 @@ public abstract class View {
 	}
 
 
-	private boolean checkIfUnivesalCommand(String line) throws IOException {
-		String words[] = line.split("\\s+");
-		
+	private boolean checkIfUnivesalCommand(String[] words) throws IOException {
+
 		if (words[0].equals("clear")) {
 			reader.clearScreen();
 		} else if (words[0].equals("exit")) {
-			System.out.println(ColorCodes.BLUE + "See ya!");
+			System.out.println(ColorCodes.BLUE + "See ya!\n");
 			reader.shutdown();
 			System.exit(0);
-		} else if (words[0].equals("dashboard") 
-				|| (words[0].equals("go_to") && words[1].equals("dashboard"))) {
+		} else if (words[0].equals("dashboard") || (words[0].equals("go_to") && words[1].equals("dashboard"))) {
 			if (this.name.equals("Dashboard")) {
 				reader.println("you are in dashboard already!");
 			} else {
@@ -142,7 +144,7 @@ public abstract class View {
 	}
 
 
-	abstract boolean executeCommand(String line) throws IOException;
+	abstract boolean executeCommand(String[] words) throws IOException;
 
 
 	void addPromptViews() {
