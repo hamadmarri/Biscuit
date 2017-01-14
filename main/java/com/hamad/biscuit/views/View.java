@@ -53,7 +53,7 @@ public abstract class View {
 			isViewed = true;
 		}
 
-		setPrompot();
+		setPrompt();
 
 		clearCompleters();
 
@@ -119,28 +119,44 @@ public abstract class View {
 
 	private boolean checkIfUnivesalCommand(String[] words) throws IOException {
 
-		if (words[0].equals("clear")) {
-			reader.clearScreen();
-		} else if (words[0].equals("exit")) {
-			System.out.println(ColorCodes.BLUE + "See ya!\n");
-			reader.shutdown();
-			System.exit(0);
-		} else if (words[0].equals("dashboard") || (words[0].equals("go_to") && words[1].equals("dashboard"))) {
-			if (this.name.equals("Dashboard")) {
-				reader.println("you are in dashboard already!");
-			} else {
-				promptViews.remove(name);
-				View v = this.previousView;
-				while (!v.name.equals("Dashboard")) {
-					v = v.previousView;
-				}
-				v.view();
+		if (words.length == 1) {
+			if (words[0].equals("clear")) {
+				reader.clearScreen();
+				return true;
+			} else if (words[0].equals("exit")) {
+				System.out.println(ColorCodes.BLUE + "See ya!\n");
+				reader.shutdown();
+				System.exit(0);
+			} else if (words[0].equals("dashboard")) {
+				gotoDashboard();
+				return true;
+			} else if (words[0].equals("back")) {
+				this.close();
+				return true;
 			}
-		} else {
-			return false;
+		} else if (words.length == 2) {
+			if (words[0].equals("go_to") && words[1].equals("dashboard")) {
+				gotoDashboard();
+				return true;
+			}
 		}
 
-		return true;
+		return false;
+	}
+
+
+	private void gotoDashboard() throws IOException {
+		if (this.name.equals("Dashboard")) {
+			reader.println("you are in the dashboard already!");
+		} else {
+			promptViews.remove(name);
+			View v = this.previousView;
+			while (!v.name.equals("Dashboard")) {
+				promptViews.remove(v.name);
+				v = v.previousView;
+			}
+			v.view();
+		}
 	}
 
 
@@ -152,7 +168,14 @@ public abstract class View {
 	}
 
 
-	static void setPrompot() {
+	void updatePromptViews() {
+		promptViews.remove(promptViews.size() - 1);
+		promptViews.add(name);
+		setPrompt();
+	}
+
+
+	static void setPrompt() {
 		StringBuilder prompt = new StringBuilder();
 
 		for (int i = 0; i < promptViews.size(); i++) {
@@ -170,8 +193,8 @@ public abstract class View {
 
 
 	public void close() {
-		promptViews.remove(name);
 		if (previousView != null) {
+			promptViews.remove(name);
 			previousView.view();
 		}
 	}

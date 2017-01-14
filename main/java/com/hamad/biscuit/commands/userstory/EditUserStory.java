@@ -1,4 +1,4 @@
-package com.hamad.biscuit.commands;
+package com.hamad.biscuit.commands.userstory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.hamad.biscuit.ColorCodes;
+import com.hamad.biscuit.commands.Command;
 import com.hamad.biscuit.models.Project;
 import com.hamad.biscuit.models.UserStory;
 import com.hamad.biscuit.models.enums.BusinessValue;
@@ -18,17 +19,16 @@ import jline.console.completer.Completer;
 import jline.console.completer.NullCompleter;
 import jline.console.completer.StringsCompleter;
 
-public class AddUserStoryToBacklog implements Command {
+public class EditUserStory implements Command {
 
 	ConsoleReader reader = null;
-	Project project = null;
 	UserStory userStory = new UserStory();
 
 
-	public AddUserStoryToBacklog(ConsoleReader reader, Project project) {
+	public EditUserStory(ConsoleReader reader, UserStory us) {
 		super();
 		this.reader = reader;
-		this.project = project;
+		this.userStory = us;
 	}
 
 
@@ -38,25 +38,24 @@ public class AddUserStoryToBacklog implements Command {
 
 		setTitle();
 
-		setDescription(description);
+		// setDescription(description);
 
-		userStory.state = State.OPEN;
-
-		setBusinessValue();
-
-		setPoints();
-
-		userStory.initiatedDate = new Date();
+		// userStory.state = State.OPEN;
+		// setBusinessValue();
+		// setPoints();
+		// userStory.initiatedDate = new Date();
+		// userStory.plannedDate = new Date(0);
+		// userStory.dueDate = new Date(0);
 
 		reader.setPrompt(prompt);
 
-		project.backlog.addUserStory(userStory);
-		project.save();
+		userStory.save();
 
-		reader.println();
-		reader.println(ColorCodes.GREEN + "User Story \"" + userStory.name + "\" has been added!" + ColorCodes.RESET);
+		// reader.println();
+		// reader.println(ColorCodes.GREEN + "User Story \"" + userStory.title +
+		// "\" has been added!" + ColorCodes.RESET);
 
-		return false;
+		return true;
 	}
 
 
@@ -147,8 +146,14 @@ public class AddUserStoryToBacklog implements Command {
 
 
 	private void setTitle() throws IOException {
-		reader.setPrompt(ColorCodes.BLUE + "title: " + ColorCodes.RESET);
-		userStory.name = reader.readLine();
+		String prompt = ColorCodes.BLUE + "title: " + ColorCodes.RESET;
+
+		String preload = userStory.title;
+
+		reader.resetPromptLine(prompt, preload, 0);
+		reader.print("\r");
+
+		userStory.title = reader.readLine();
 	}
 
 }

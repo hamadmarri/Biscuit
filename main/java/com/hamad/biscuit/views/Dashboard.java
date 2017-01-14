@@ -30,27 +30,18 @@ public class Dashboard extends View {
 	@Override
 	boolean executeCommand(String[] words) throws IOException {
 
-		if (words[0].equals("summary")) {
-
-		} else if (words[0].equals("projects")) {
-
-		} else if (words[0].equals("alerts")) {
-
-		} else if (words[0].equals("check_alert")) {
-
-		} else if (words[0].equals("search")) {
-
-		} else if (words[0].equals("help")) {
-
-		} else {
+		if (words.length == 1) {
+			if (words[0].equals("summary")) {
+			} else if (words[0].equals("projects")) {
+			} else if (words[0].equals("alerts")) {
+			} else if (words[0].equals("check_alert")) {
+			} else if (words[0].equals("search")) {
+			} else if (words[0].equals("help")) {
+			}
+		} else if (words.length == 2) {
 
 			if (words[0].equals("go_to")) {
 				// "project#1", "users", "contacts", "groups"
-
-				if (words[1].equals("project")) {
-					// check if project name
-					return checkIfProjectName(words[2]);
-				}
 
 				// check if project name
 				return checkIfProjectName(words[1]);
@@ -62,13 +53,21 @@ public class Dashboard extends View {
 				(new AddProject(reader)).execute();
 				clearCompleters();
 				addCompleters();
-			} else {
-				return false;
+				return true;
 			}
 
+		} else if (words.length == 3) {
+			if (words[0].equals("go_to")) {
+				// "project#1", "users", "contacts", "groups"
+
+				if (words[1].equals("project")) {
+					// check if project name
+					return checkIfProjectName(words[2]);
+				}
+			}
 		}
 
-		return true;
+		return false;
 	}
 
 
