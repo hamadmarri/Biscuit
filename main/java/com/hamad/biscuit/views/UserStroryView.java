@@ -3,9 +3,9 @@ package com.hamad.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
-import com.hamad.biscuit.commands.userstory.ChangeStatusUserStory;
-import com.hamad.biscuit.commands.userstory.EditUserStory;
-import com.hamad.biscuit.commands.userstory.ShowUserStory;
+import com.hamad.biscuit.commands.userStory.ChangeStatusUserStory;
+import com.hamad.biscuit.commands.userStory.EditUserStory;
+import com.hamad.biscuit.commands.userStory.ShowUserStory;
 import com.hamad.biscuit.factories.UserStoryCompleterFactory;
 import com.hamad.biscuit.models.UserStory;
 import com.hamad.biscuit.models.enums.State;

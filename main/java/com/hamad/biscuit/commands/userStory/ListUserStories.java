@@ -1,4 +1,4 @@
-package com.hamad.biscuit.commands.userstory;
+package com.hamad.biscuit.commands.userStory;
 
 import java.io.IOException;
 import java.util.ArrayList;

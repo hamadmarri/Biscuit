@@ -11,8 +11,8 @@ import com.hamad.biscuit.commands.AddRelease;
 import com.hamad.biscuit.commands.AddSprint;
 import com.hamad.biscuit.commands.ListReleases;
 import com.hamad.biscuit.commands.ListSprints;
-import com.hamad.biscuit.commands.userstory.AddUserStoryToBacklog;
-import com.hamad.biscuit.commands.userstory.ListUserStories;
+import com.hamad.biscuit.commands.userStory.AddUserStoryToBacklog;
+import com.hamad.biscuit.commands.userStory.ListUserStories;
 import com.hamad.biscuit.factories.ProjectCompleterFactory;
 import com.hamad.biscuit.models.Project;
 

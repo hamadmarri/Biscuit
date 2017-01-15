@@ -3,8 +3,8 @@ package com.hamad.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
-import com.hamad.biscuit.commands.userstory.AddUserStoryToBacklog;
-import com.hamad.biscuit.commands.userstory.ListUserStories;
+import com.hamad.biscuit.commands.userStory.AddUserStoryToBacklog;
+import com.hamad.biscuit.commands.userStory.ListUserStories;
 import com.hamad.biscuit.factories.BacklogCompleterFactory;
 import com.hamad.biscuit.models.Backlog;
 import com.hamad.biscuit.models.UserStory;

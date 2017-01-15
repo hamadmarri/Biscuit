@@ -1,9 +1,7 @@
-package com.hamad.biscuit.commands.userstory;
+package com.hamad.biscuit.commands.userStory;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import com.hamad.biscuit.ColorCodes;
 import com.hamad.biscuit.commands.Command;
@@ -19,16 +17,17 @@ import jline.console.completer.Completer;
 import jline.console.completer.NullCompleter;
 import jline.console.completer.StringsCompleter;
 
-public class EditUserStory implements Command {
+public class AddUserStoryToBacklog implements Command {
 
 	ConsoleReader reader = null;
+	Project project = null;
 	UserStory userStory = new UserStory();
 
 
-	public EditUserStory(ConsoleReader reader, UserStory us) {
+	public AddUserStoryToBacklog(ConsoleReader reader, Project project) {
 		super();
 		this.reader = reader;
-		this.userStory = us;
+		this.project = project;
 	}
 
 
@@ -38,37 +37,37 @@ public class EditUserStory implements Command {
 
 		setTitle();
 
-		// setDescription(description);
+		setDescription(description);
 
-		// userStory.state = State.OPEN;
-		// setBusinessValue();
-		// setPoints();
-		// userStory.initiatedDate = new Date();
-		// userStory.plannedDate = new Date(0);
-		// userStory.dueDate = new Date(0);
+		userStory.state = State.OPEN;
+		setBusinessValue();
+		setPoints();
+		userStory.initiatedDate = new Date();
+		userStory.plannedDate = new Date(0);
+		userStory.dueDate = new Date(0);
 
 		reader.setPrompt(prompt);
 
-		userStory.save();
+		project.backlog.addUserStory(userStory);
+		project.save();
 
-		// reader.println();
-		// reader.println(ColorCodes.GREEN + "User Story \"" + userStory.title +
-		// "\" has been added!" + ColorCodes.RESET);
+		reader.println();
+		reader.println(ColorCodes.GREEN + "User Story \"" + userStory.title + "\" has been added!" + ColorCodes.RESET);
 
-		return true;
+		return false;
 	}
 
 
 	private void setPoints() throws IOException {
-		List<String> points = new ArrayList<String>();
+		// List<String> points = new ArrayList<String>();
 		String line;
 		Completer oldCompleter = (Completer) reader.getCompleters().toArray()[0];
 
-		for (Points p : Points.values()) {
-			points.add(p.name().substring(1, p.name().length() - 2));
-		}
+		// for (Points p : Points.values()) {
+		// points.add(p.name().substring(1, p.name().length() - 2));
+		// }
 
-		Completer pointsCompleter = new ArgumentCompleter(new StringsCompleter(points), new NullCompleter());
+		Completer pointsCompleter = new ArgumentCompleter(new StringsCompleter(Points.values), new NullCompleter());
 
 		reader.removeCompleter(oldCompleter);
 		reader.addCompleter(pointsCompleter);
@@ -93,15 +92,15 @@ public class EditUserStory implements Command {
 
 
 	private void setBusinessValue() throws IOException {
-		List<String> businessValues = new ArrayList<String>();
+		// List<String> businessValues = new ArrayList<String>();
 		String line;
 		Completer oldCompleter = (Completer) reader.getCompleters().toArray()[0];
 
-		for (BusinessValue bv : BusinessValue.values()) {
-			businessValues.add(bv.name().toLowerCase());
-		}
+		// for (BusinessValue bv : BusinessValue.values()) {
+		// businessValues.add(bv.name().toLowerCase());
+		// }
 
-		Completer businessValuesCompleter = new ArgumentCompleter(new StringsCompleter(businessValues),
+		Completer businessValuesCompleter = new ArgumentCompleter(new StringsCompleter(BusinessValue.values),
 				new NullCompleter());
 
 		reader.removeCompleter(oldCompleter);
@@ -146,13 +145,7 @@ public class EditUserStory implements Command {
 
 
 	private void setTitle() throws IOException {
-		String prompt = ColorCodes.BLUE + "title: " + ColorCodes.RESET;
-
-		String preload = userStory.title;
-
-		reader.resetPromptLine(prompt, preload, 0);
-		reader.print("\r");
-
+		reader.setPrompt(ColorCodes.BLUE + "title: " + ColorCodes.RESET);
 		userStory.title = reader.readLine();
 	}
 
