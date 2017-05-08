@@ -3,9 +3,11 @@ package com.hamad.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.hamad.biscuit.commands.task.ChangeStatusTask;
 import com.hamad.biscuit.commands.task.ShowTask;
 import com.hamad.biscuit.factories.TaskCompleterFactory;
 import com.hamad.biscuit.models.Task;
+import com.hamad.biscuit.models.enums.State;
 
 import jline.console.completer.Completer;
 
@@ -38,6 +40,12 @@ public class TaskView extends View {
 
 
 	private boolean execute2Keywords(String[] words) throws IOException {
+		if (words[0].equals("change_status_to")) {
+			if (State.values.contains(words[1])) {
+				(new ChangeStatusTask(task, State.valueOf(words[1].toUpperCase()))).execute();
+				return true;
+			}
+		}
 		return false;
 	}
 
