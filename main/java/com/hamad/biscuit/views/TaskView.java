@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.hamad.biscuit.commands.task.ChangeStatusTask;
+import com.hamad.biscuit.commands.task.EditTask;
 import com.hamad.biscuit.commands.task.ShowTask;
 import com.hamad.biscuit.factories.TaskCompleterFactory;
 import com.hamad.biscuit.models.Task;
@@ -53,6 +54,12 @@ public class TaskView extends View {
 	private boolean execute1Keyword(String[] words) throws IOException {
 		if (words[0].equals("show")) {
 			(new ShowTask(task)).execute();
+			return true;
+		} else if (words[0].equals("edit")) {
+			(new EditTask(reader, task)).execute();
+			this.name = task.title;
+			updatePromptViews();
+
 			return true;
 		}
 		return false;
