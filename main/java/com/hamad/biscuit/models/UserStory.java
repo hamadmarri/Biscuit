@@ -4,6 +4,7 @@
 
 package com.hamad.biscuit.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,9 +27,9 @@ public class UserStory {
 
 	public static String[] fields;
 
-	List<Task> tasks;
-	List<Bug> bugs;
-	List<Test> tests;
+	public List<Task> tasks = new ArrayList<>();
+	public List<Bug> bugs = new ArrayList<>();
+	public List<Test> tests = new ArrayList<>();
 
 	static {
 		fields = new String[8];

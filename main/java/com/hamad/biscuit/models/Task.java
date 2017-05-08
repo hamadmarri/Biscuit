@@ -20,7 +20,7 @@ public class Task {
 	public Date initiatedDate = null;
 	public Date plannedDate = null;
 	public Date dueDate = null;
-	public int estimatedTime;
+	public float estimatedTime;
 
 	public static String[] fields;
 

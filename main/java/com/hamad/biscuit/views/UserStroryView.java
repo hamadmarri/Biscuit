@@ -3,6 +3,7 @@ package com.hamad.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.hamad.biscuit.commands.task.AddTaskToUserStory;
 import com.hamad.biscuit.commands.userStory.ChangeStatusUserStory;
 import com.hamad.biscuit.commands.userStory.EditUserStory;
 import com.hamad.biscuit.commands.userStory.ShowUserStory;
@@ -44,6 +45,11 @@ public class UserStroryView extends View {
 		if (words[0].equals("change_status_to")) {
 			if (State.values.contains(words[1])) {
 				(new ChangeStatusUserStory(userStory, State.valueOf(words[1].toUpperCase()))).execute();
+				return true;
+			}
+		} else if (words[0].equals("add")) {
+			if (words[1].equals("task")) {
+				(new AddTaskToUserStory(reader, userStory.project, userStory)).execute();
 				return true;
 			}
 		}
