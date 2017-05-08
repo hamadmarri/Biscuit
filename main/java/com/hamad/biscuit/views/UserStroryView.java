@@ -9,6 +9,7 @@ import com.hamad.biscuit.commands.userStory.ChangeStatusUserStory;
 import com.hamad.biscuit.commands.userStory.EditUserStory;
 import com.hamad.biscuit.commands.userStory.ShowUserStory;
 import com.hamad.biscuit.factories.UserStoryCompleterFactory;
+import com.hamad.biscuit.models.Task;
 import com.hamad.biscuit.models.UserStory;
 import com.hamad.biscuit.models.enums.State;
 
@@ -37,6 +38,29 @@ public class UserStroryView extends View {
 			return execute1Keyword(words);
 		} else if (words.length == 2) {
 			return execute2Keywords(words);
+		} else if (words.length == 3) {
+			return execute3Keywords(words);
+		}
+		return false;
+	}
+
+
+	private boolean execute3Keywords(String[] words) {
+		if (words[0].equals("go_to")) {
+			if (words[1].equals("task")) {
+				if (Task.getTasks(userStory).contains(words[2])) {
+					Task t = Task.find(userStory, words[2]);
+					if (t == null) {
+						return false;
+					}
+
+					t.project = userStory.project;
+
+					TaskView usv = new TaskView(this, t);
+					usv.view();
+					return true;
+				}
+			}
 		}
 		return false;
 	}

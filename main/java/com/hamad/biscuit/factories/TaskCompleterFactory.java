@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hamad.biscuit.models.Task;
-import com.hamad.biscuit.models.UserStory;
 import com.hamad.biscuit.models.enums.State;
 
 import jline.console.completer.ArgumentCompleter;
@@ -12,9 +11,9 @@ import jline.console.completer.Completer;
 import jline.console.completer.NullCompleter;
 import jline.console.completer.StringsCompleter;
 
-public class UserStoryCompleterFactory {
+public class TaskCompleterFactory {
 
-	public static List<Completer> getUserStoryCompleters(UserStory userStory) {
+	public static List<Completer> getTaskCompleters(Task task) {
 		List<Completer> completers = new ArrayList<Completer>();
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("summary", "show", "times", "edit", "tasks", "back"),
@@ -41,11 +40,8 @@ public class UserStoryCompleterFactory {
 		completers.add(new ArgumentCompleter(new StringsCompleter("add"), new StringsCompleter("task", "bug", "test"),
 				new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter("bug#", "test#"),
-				new NullCompleter()));
-
-		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter("task"),
-				new StringsCompleter(Task.getTasks(userStory)), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"),
+				new StringsCompleter("task#", "bug#", "test#"), new NullCompleter()));
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("change_status_to"),
 				new StringsCompleter(State.values), new NullCompleter()));
