@@ -10,10 +10,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class ModelHelper {
 
-	static Gson gson = new Gson();
+//	static Gson gson = new Gson();
+	static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 
 	static public void save(Object o, String name) {
