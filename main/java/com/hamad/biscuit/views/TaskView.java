@@ -3,6 +3,7 @@ package com.hamad.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.hamad.biscuit.commands.task.ShowTask;
 import com.hamad.biscuit.factories.TaskCompleterFactory;
 import com.hamad.biscuit.models.Task;
 
@@ -42,6 +43,10 @@ public class TaskView extends View {
 
 
 	private boolean execute1Keyword(String[] words) throws IOException {
+		if (words[0].equals("show")) {
+			(new ShowTask(task)).execute();
+			return true;
+		}
 		return false;
 	}
 
