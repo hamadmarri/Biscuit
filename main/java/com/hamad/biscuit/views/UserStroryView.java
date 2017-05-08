@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.hamad.biscuit.commands.task.AddTaskToUserStory;
+import com.hamad.biscuit.commands.task.ListTasks;
 import com.hamad.biscuit.commands.userStory.ChangeStatusUserStory;
 import com.hamad.biscuit.commands.userStory.EditUserStory;
 import com.hamad.biscuit.commands.userStory.ShowUserStory;
@@ -67,6 +68,9 @@ public class UserStroryView extends View {
 			this.name = userStory.title;
 			updatePromptViews();
 
+			return true;
+		} else if (words[0].equals("tasks")) {
+			(new ListTasks(userStory, "")).execute();
 			return true;
 		}
 
