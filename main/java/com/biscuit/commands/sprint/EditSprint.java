@@ -1,4 +1,4 @@
-package com.biscuit.commands.task;
+package com.biscuit.commands.sprint;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
 import com.biscuit.factories.DateCompleter;
-import com.biscuit.models.Task;
+import com.biscuit.models.Sprint;
 import com.biscuit.models.enums.State;
 import com.biscuit.models.services.DateService;
 
@@ -19,46 +19,43 @@ import jline.console.completer.Completer;
 import jline.console.completer.NullCompleter;
 import jline.console.completer.StringsCompleter;
 
-public class EditTask implements Command {
-
+public class EditSprint implements Command {
 	ConsoleReader reader = null;
-	Task t = new Task();
+	Sprint s = new Sprint();
 
 
-	public EditTask(ConsoleReader reader, Task t) {
+	public EditSprint(ConsoleReader reader, Sprint s) {
 		super();
 		this.reader = reader;
-		this.t = t;
+		this.s = s;
 	}
 
 
 	public boolean execute() throws IOException {
 		String prompt = reader.getPrompt();
 
-		setTitle();
+		setName();
 		setDescription();
 		setState();
-		setInitiatedDate();
-		setPlannedDate();
+		setStartDate();
 		setDueDate();
-		setTime();
+		setVelocity();
 
 		reader.setPrompt(prompt);
 
-		t.save();
+		s.save();
 
 		return true;
 	}
 
 
-	private void setTime() throws IOException {
-
-		String prompt = ColorCodes.BLUE + "points:" + ColorCodes.YELLOW + "(hit Tab to see an example) "
+	private void setVelocity() throws IOException {
+		String prompt = ColorCodes.BLUE + "velocity:" + ColorCodes.YELLOW + "(hit Tab to see an example) "
 				+ ColorCodes.RESET;
-		String preload = String.valueOf(t.estimatedTime);
+		String preload = String.valueOf(s.velocity);
 		String line;
 		Completer oldCompleter = (Completer) reader.getCompleters().toArray()[0];
-		Completer pointsCompleter = new ArgumentCompleter(new StringsCompleter("1", "1.5", "2", "2.25", "3"),
+		Completer pointsCompleter = new ArgumentCompleter(new StringsCompleter("7", "10", "15", "20", "22"),
 				new NullCompleter());
 		reader.removeCompleter(oldCompleter);
 		reader.addCompleter(pointsCompleter);
@@ -70,10 +67,10 @@ public class EditTask implements Command {
 			line = line.trim();
 
 			try {
-				t.estimatedTime = Float.valueOf(line);
+				s.velocity = Integer.valueOf(line);
 				break;
 			} catch (NumberFormatException e) {
-				System.out.println(ColorCodes.RED + "invalid value: must be a float value!" + ColorCodes.RESET);
+				System.out.println(ColorCodes.RED + "invalid value: must be an integer value!" + ColorCodes.RESET);
 			}
 		}
 
@@ -93,7 +90,7 @@ public class EditTask implements Command {
 
 		reader.setPrompt(ColorCodes.BLUE + "\ndue date:\n" + ColorCodes.YELLOW
 				+ "(hit Tab to see examples)\n(optional: leave it blank for unchange, or unset to unset)\n"
-				+ ColorCodes.RESET + "current value: " + DateService.getDateAsString(t.dueDate) + "\n");
+				+ ColorCodes.RESET + "current value: " + DateService.getDateAsString(s.dueDate) + "\n");
 
 		while ((line = reader.readLine()) != null) {
 			line = line.trim();
@@ -106,7 +103,7 @@ public class EditTask implements Command {
 			} else if (words[0].equals("unset")) {
 				reader.removeCompleter(dateCompleter);
 				reader.addCompleter(oldCompleter);
-				t.dueDate = new Date(0);
+				s.dueDate = new Date(0);
 				break;
 			}
 
@@ -125,12 +122,12 @@ public class EditTask implements Command {
 
 				cal.set(year, month, day);
 
-				if (DateService.isSet(t.plannedDate) && cal.getTime().compareTo(t.plannedDate) <= 0) {
-					System.out.println(ColorCodes.RED + "due date must be after planned date" + ColorCodes.RESET);
+				if (DateService.isSet(s.dueDate) && cal.getTime().compareTo(s.startDate) <= 0) {
+					System.out.println(ColorCodes.RED + "due date must be after start date" + ColorCodes.RESET);
 					continue;
 				}
 
-				t.dueDate = cal.getTime();
+				s.dueDate = cal.getTime();
 
 			} catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException e) {
 				System.out.println(ColorCodes.RED + "invalid value" + ColorCodes.RESET);
@@ -145,7 +142,7 @@ public class EditTask implements Command {
 	}
 
 
-	private void setPlannedDate() throws IOException {
+	private void setStartDate() throws IOException {
 		String line;
 		Completer oldCompleter = (Completer) reader.getCompleters().toArray()[0];
 
@@ -154,9 +151,9 @@ public class EditTask implements Command {
 		reader.removeCompleter(oldCompleter);
 		reader.addCompleter(dateCompleter);
 
-		reader.setPrompt(ColorCodes.BLUE + "\nplanned date:\n" + ColorCodes.YELLOW
+		reader.setPrompt(ColorCodes.BLUE + "\nstartDate date:\n" + ColorCodes.YELLOW
 				+ "(hit Tab to see examples)\n(optional: leave it blank for unchange, or unset to unset)\n"
-				+ ColorCodes.RESET + "current value: " + DateService.getDateAsString(t.plannedDate) + "\n");
+				+ ColorCodes.RESET + "current value: " + DateService.getDateAsString(s.startDate) + "\n");
 
 		while ((line = reader.readLine()) != null) {
 			line = line.trim();
@@ -169,7 +166,7 @@ public class EditTask implements Command {
 			} else if (words[0].equals("unset")) {
 				reader.removeCompleter(dateCompleter);
 				reader.addCompleter(oldCompleter);
-				t.plannedDate = new Date(0);
+				s.startDate = new Date(0);
 				break;
 			}
 
@@ -188,70 +185,7 @@ public class EditTask implements Command {
 
 				cal.set(year, month, day);
 
-				if (DateService.isSet(t.dueDate) && cal.getTime().compareTo(t.dueDate) >= 0) {
-					System.out.println(ColorCodes.RED + "planned date must be before due date" + ColorCodes.RESET);
-					continue;
-				}
-
-				t.plannedDate = cal.getTime();
-
-			} catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException e) {
-				System.out.println(ColorCodes.RED + "invalid value" + ColorCodes.RESET);
-				continue;
-			}
-
-			reader.removeCompleter(dateCompleter);
-			reader.addCompleter(oldCompleter);
-			break;
-		} // while
-
-	}
-
-
-	private void setInitiatedDate() throws IOException {
-		String line;
-		Completer oldCompleter = (Completer) reader.getCompleters().toArray()[0];
-
-		Completer dateCompleter = new AggregateCompleter(DateCompleter.getDateCompleter());
-
-		reader.removeCompleter(oldCompleter);
-		reader.addCompleter(dateCompleter);
-
-		reader.setPrompt(ColorCodes.BLUE + "\ninitiated date:\n" + ColorCodes.YELLOW
-				+ "(hit Tab to see examples)\n(optional: leave it blank for unchange, or unset to unset)\n"
-				+ ColorCodes.RESET + "current value: " + DateService.getDateAsString(t.initiatedDate) + "\n");
-
-		while ((line = reader.readLine()) != null) {
-			line = line.trim();
-			String words[] = line.split("\\s+");
-
-			if (line.isEmpty()) {
-				reader.removeCompleter(dateCompleter);
-				reader.addCompleter(oldCompleter);
-				break;
-			} else if (words[0].equals("unset")) {
-				reader.removeCompleter(dateCompleter);
-				reader.addCompleter(oldCompleter);
-				t.initiatedDate = new Date(0);
-				break;
-			}
-
-			try {
-				int month = DateCompleter.months.indexOf(words[0]);
-				int day = Integer.parseInt(words[1]);
-				int year = Integer.parseInt(words[2]);
-
-				Calendar cal = new GregorianCalendar();
-				cal.clear();
-				cal.set(year, month, 1);
-
-				if (day > cal.getActualMaximum(Calendar.DAY_OF_MONTH)) {
-					throw new NullPointerException();
-				}
-
-				cal.set(year, month, day);
-
-				t.initiatedDate = cal.getTime();
+				s.startDate = cal.getTime();
 
 			} catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException e) {
 				System.out.println(ColorCodes.RED + "invalid value" + ColorCodes.RESET);
@@ -268,7 +202,7 @@ public class EditTask implements Command {
 
 	private void setState() throws IOException {
 		String prompt = ColorCodes.BLUE + "state: " + ColorCodes.RESET;
-		String preload = t.state.toString().toLowerCase();
+		String preload = s.state.toString().toLowerCase();
 		String state;
 		Completer oldCompleter = (Completer) reader.getCompleters().toArray()[0];
 		Completer stateCompleter = new ArgumentCompleter(new StringsCompleter(State.values), new NullCompleter());
@@ -286,7 +220,7 @@ public class EditTask implements Command {
 			state = reader.readLine().trim();
 		}
 
-		t.state = State.valueOf(state.toUpperCase());
+		s.state = State.valueOf(state.toUpperCase());
 
 		reader.removeCompleter(stateCompleter);
 		reader.addCompleter(oldCompleter);
@@ -298,7 +232,7 @@ public class EditTask implements Command {
 		String line;
 		String prompt = ColorCodes.BLUE + "description: " + ColorCodes.YELLOW + "(\\q to end writing) "
 				+ ColorCodes.RESET;
-		String preload = t.description.replace("\n", "<newline>").replace("!", "<exclamation-mark>");
+		String preload = s.description.replace("\n", "<newline>").replace("!", "<exclamation-mark>");
 
 		reader.resetPromptLine(prompt, preload, 0);
 		reader.print("\r");
@@ -311,18 +245,17 @@ public class EditTask implements Command {
 			reader.setPrompt("");
 		}
 
-		t.description = description.toString().replace("<newline>", "\n").replace("<exclamation-mark>", "!");
+		s.description = description.toString().replace("<newline>", "\n").replace("<exclamation-mark>", "!");
 	}
 
 
-	private void setTitle() throws IOException {
-		String prompt = ColorCodes.BLUE + "title: " + ColorCodes.RESET;
-		String preload = t.title;
+	private void setName() throws IOException {
+		String prompt = ColorCodes.BLUE + "name: " + ColorCodes.RESET;
+		String preload = s.name;
 
 		reader.resetPromptLine(prompt, preload, 0);
 		reader.print("\r");
 
-		t.title = reader.readLine();
+		s.name = reader.readLine();
 	}
-
 }

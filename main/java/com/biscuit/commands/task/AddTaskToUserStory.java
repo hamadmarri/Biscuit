@@ -76,7 +76,7 @@ public class AddTaskToUserStory implements Command {
 				task.estimatedTime = Float.valueOf(line);
 				break;
 			} catch (NumberFormatException e) {
-				System.out.println(ColorCodes.RED + "invalid value: must be an float value!" + ColorCodes.RESET);
+				System.out.println(ColorCodes.RED + "invalid value: must be a float value!" + ColorCodes.RESET);
 			}
 		}
 

@@ -95,6 +95,9 @@ public class ProjectCompleterFactory {
 		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter("sprint"),
 				new StringsCompleter(Sprint.getSprints(project)), new NullCompleter()));
 
+		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter("sprint"),
+				new StringsCompleter(Sprint.getSprints(project)), new NullCompleter()));
+
 		return completers;
 
 	}

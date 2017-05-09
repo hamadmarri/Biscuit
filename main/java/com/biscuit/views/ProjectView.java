@@ -16,7 +16,7 @@ import com.biscuit.commands.userStory.ListUserStories;
 import com.biscuit.factories.ProjectCompleterFactory;
 import com.biscuit.models.Project;
 import com.biscuit.models.Release;
-import com.biscuit.models.Task;
+import com.biscuit.models.Sprint;
 
 import jline.console.completer.Completer;
 
@@ -99,6 +99,19 @@ public class ProjectView extends View {
 
 					ReleaseView rv = new ReleaseView(this, r);
 					rv.view();
+					return true;
+				}
+			} else if (words[1].equals("sprint")) {
+				if (Sprint.getSprints(project).contains(words[2])) {
+					Sprint s = Sprint.find(project, words[2]);
+					if (s == null) {
+						return false;
+					}
+
+					s.project = project;
+
+					SprintView sv = new SprintView(this, s);
+					sv.view();
 					return true;
 				}
 			}

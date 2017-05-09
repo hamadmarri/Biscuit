@@ -12,9 +12,9 @@ public class ChangeStatusRelease implements Command {
 	State state = null;
 
 
-	public ChangeStatusRelease(Release t, State state) {
+	public ChangeStatusRelease(Release r, State state) {
 		super();
-		this.r = t;
+		this.r = r;
 		this.state = state;
 	}
 
