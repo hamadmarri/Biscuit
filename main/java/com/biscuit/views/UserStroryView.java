@@ -75,6 +75,11 @@ public class UserStroryView extends View {
 		} else if (words[0].equals("add")) {
 			if (words[1].equals("task")) {
 				(new AddTaskToUserStory(reader, userStory.project, userStory)).execute();
+
+				// to reset completers
+				clearCompleters();
+				addCompleters();
+				
 				return true;
 			}
 		}

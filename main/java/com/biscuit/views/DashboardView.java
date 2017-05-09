@@ -51,8 +51,11 @@ public class DashboardView extends View {
 				// "filter", "sort"
 			} else if (words[0].equals("add") && words[1].equals("project")) {
 				(new AddProject(reader)).execute();
+				
+				// to reset completers
 				clearCompleters();
 				addCompleters();
+				
 				return true;
 			}
 

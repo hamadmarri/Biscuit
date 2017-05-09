@@ -50,10 +50,10 @@ public class SprintView extends View {
 		if (words[0].equals("list")) {
 			if (words[1].equals("user_stories")) {
 				if (words[2].equals("filter")) {
-					(new ListUserStories(sprint, "", true, words[3], false, "")).execute();
+					(new ListUserStories(sprint, sprint.name + " (User Stories)", true, words[3], false, "")).execute();
 					return true;
 				} else if (words[2].equals("sort")) {
-					(new ListUserStories(sprint, "", false, "", true, words[3])).execute();
+					(new ListUserStories(sprint, sprint.name + " (User Stories)", false, "", true, words[3])).execute();
 					return true;
 				}
 			}
@@ -71,12 +71,17 @@ public class SprintView extends View {
 			}
 		} else if (words[0].equals("list")) {
 			if (words[1].equals("user_stories")) {
-				(new ListUserStories(sprint, "")).execute();
+				(new ListUserStories(sprint, sprint.name + " (User Stories)")).execute();
 				return true;
 			}
 		} else if (words[0].equals("add")) {
 			if (words[1].equals("user_story")) {
 				(new AddUserStoryToSprint(reader, sprint)).execute();
+				
+				// to reset completers
+				clearCompleters();
+				addCompleters();
+				
 				return true;
 			}
 		} else if (words[0].equals("go_to")) {
@@ -108,7 +113,7 @@ public class SprintView extends View {
 
 			return true;
 		} else if (words[0].equals("user_stories")) {
-			(new ListUserStories(sprint, "")).execute();
+			(new ListUserStories(sprint, sprint.name + " (User Stories)")).execute();
 			return true;
 		}
 		return false;

@@ -127,16 +127,33 @@ public class ProjectView extends View {
 				return true;
 			} else if (words[1].equals("release")) {
 				(new AddRelease(reader, project)).execute();
+				
+				// to reset completers
+				clearCompleters();
+				addCompleters();
+				
 				return true;
 			} else if (words[1].equals("sprint")) {
 				(new AddSprint(reader, project)).execute();
+				
+				// to reset completers
+				clearCompleters();
+				addCompleters();
+				
 				return true;
 			}
+			
 		} else if (words[0].equals("go_to")) {
 			if (words[1].equals("backlog")) {
 				this.project.backlog.project = this.project;
 				BacklogView bv = new BacklogView(this, this.project.backlog);
 				bv.view();
+				return true;
+			} else if (words[1].equals("releases")) {
+
+				ReleasesView rsv = new ReleasesView(this, project);
+				rsv.view();
+
 				return true;
 			}
 		} else if (words[0].equals("show")) {

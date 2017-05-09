@@ -46,10 +46,10 @@ public class BacklogView extends View {
 		if (words[0].equals("list")) {
 			if (words[1].equals("user_stories")) {
 				if (words[2].equals("filter")) {
-					(new ListUserStories(backlog, "", true, words[3], false, "")).execute();
+					(new ListUserStories(backlog, "Backlog (User Stories)", true, words[3], false, "")).execute();
 					return true;
 				} else if (words[2].equals("sort")) {
-					(new ListUserStories(backlog, "", false, "", true, words[3])).execute();
+					(new ListUserStories(backlog, "Backlog (User Stories)", false, "", true, words[3])).execute();
 					return true;
 				}
 			}
@@ -63,11 +63,16 @@ public class BacklogView extends View {
 		if (words[0].equals("add")) {
 			if (words[1].equals("user_story")) {
 				(new AddUserStoryToBacklog(reader, this.backlog.project)).execute();
+				
+				// to reset completers
+				clearCompleters();
+				addCompleters();
+				
 				return true;
 			}
 		} else if (words[0].equals("list")) {
 			if (words[1].equals("user_stories")) {
-				(new ListUserStories(backlog, "")).execute();
+				(new ListUserStories(backlog, "Backlog (User Stories)")).execute();
 				return true;
 			}
 		} else if (words[0].equals("go_to")) {
@@ -91,7 +96,7 @@ public class BacklogView extends View {
 
 	private boolean execute1Keyword(String[] words) throws IOException {
 		if (words[0].equals("user_stories")) {
-			(new ListUserStories(backlog, "")).execute();
+			(new ListUserStories(backlog, "Backlog (User Stories)")).execute();
 			return true;
 		}
 
