@@ -5,7 +5,7 @@ import java.util.Date;
 
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
-import com.biscuit.models.Project;
+import com.biscuit.models.Sprint;
 import com.biscuit.models.UserStory;
 import com.biscuit.models.enums.BusinessValue;
 import com.biscuit.models.enums.Points;
@@ -17,17 +17,17 @@ import jline.console.completer.Completer;
 import jline.console.completer.NullCompleter;
 import jline.console.completer.StringsCompleter;
 
-public class AddUserStoryToBacklog implements Command {
+public class AddUserStoryToSprint implements Command {
 
 	ConsoleReader reader = null;
-	Project project = null;
+	Sprint sprint = null;
 	UserStory userStory = new UserStory();
 
 
-	public AddUserStoryToBacklog(ConsoleReader reader, Project project) {
+	public AddUserStoryToSprint(ConsoleReader reader, Sprint sprint) {
 		super();
 		this.reader = reader;
-		this.project = project;
+		this.sprint = sprint;
 	}
 
 
@@ -48,11 +48,12 @@ public class AddUserStoryToBacklog implements Command {
 
 		reader.setPrompt(prompt);
 
-		project.backlog.addUserStory(userStory);
-		project.save();
+		sprint.addUserStory(userStory);
+		sprint.save();
 
 		reader.println();
-		reader.println(ColorCodes.GREEN + "User Story \"" + userStory.title + "\" has been added to the backlog!" + ColorCodes.RESET);
+		reader.println(ColorCodes.GREEN + "User Story \"" + userStory.title + "\" has been added to sprint "
+				+ sprint.name + "!" + ColorCodes.RESET);
 
 		return false;
 	}

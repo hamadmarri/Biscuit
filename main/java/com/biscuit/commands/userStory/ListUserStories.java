@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
 import com.biscuit.models.Backlog;
+import com.biscuit.models.Sprint;
 import com.biscuit.models.UserStory;
 import com.biscuit.models.services.DateService;
 
@@ -22,6 +23,7 @@ import de.vandermeer.asciitable.v2.themes.V2_E_TableThemes;
 public class ListUserStories implements Command {
 
 	Backlog backlog = null;
+	Sprint sprint = null;
 	String title = "";
 	boolean isFilter = false;
 	boolean isSort = false;
@@ -38,10 +40,29 @@ public class ListUserStories implements Command {
 	}
 
 
+	public ListUserStories(Sprint sprint, String title) {
+		super();
+		this.sprint = sprint;
+		this.title = title;
+	}
+
+
 	public ListUserStories(Backlog backlog, String title, boolean isFilter, String filterBy, boolean isSort,
 			String sortBy) {
 		super();
 		this.backlog = backlog;
+		this.title = title;
+		this.isFilter = isFilter;
+		this.filterBy = filterBy.toLowerCase();
+		this.isSort = isSort;
+		this.sortBy = sortBy.toLowerCase();
+	}
+
+
+	public ListUserStories(Sprint sprint, String title, boolean isFilter, String filterBy, boolean isSort,
+			String sortBy) {
+		super();
+		this.sprint = sprint;
 		this.title = title;
 		this.isFilter = isFilter;
 		this.filterBy = filterBy.toLowerCase();
@@ -57,7 +78,15 @@ public class ListUserStories implements Command {
 		String tableString;
 
 		List<UserStory> userStories = new ArrayList<>();
-		userStories.addAll(backlog.userStories);
+
+		if (backlog != null) {
+			userStories.addAll(backlog.userStories);
+		} else if (sprint != null) {
+			userStories.addAll(sprint.userStories);
+		} else {
+			System.err.println("error: backlog and sprint are null");
+			return false;
+		}
 
 		if (isFilter) {
 			doFilter(userStories);

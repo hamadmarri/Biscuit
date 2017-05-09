@@ -56,6 +56,11 @@ public class Sprint {
 	}
 
 
+	public void addUserStory(UserStory userStory) {
+		this.userStories.add(userStory);
+	}
+
+
 	public void save() {
 		project.save();
 	}

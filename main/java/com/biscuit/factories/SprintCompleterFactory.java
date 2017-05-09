@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.biscuit.models.Sprint;
+import com.biscuit.models.UserStory;
 import com.biscuit.models.enums.State;
 
 import jline.console.completer.ArgumentCompleter;
@@ -17,18 +18,23 @@ public class SprintCompleterFactory {
 	public static Collection<? extends Completer> getSprintCompleters(Sprint sprint) {
 		List<Completer> completers = new ArrayList<Completer>();
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("summary", "show", "times", "edit", "back"),
+		completers.add(new ArgumentCompleter(
+				new StringsCompleter("summary", "show", "times", "edit", "back", "user_stories"), new NullCompleter()));
+
+		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("user_stories"),
+				new StringsCompleter("filter"), new NullCompleter()));
+
+		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("user_stories"),
+				new StringsCompleter("sort"), new StringsCompleter(UserStory.fields), new NullCompleter()));
+
+		completers.add(new ArgumentCompleter(new StringsCompleter("add"), new StringsCompleter("user_story"),
 				new NullCompleter()));
-
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("sprints"),
-				new StringsCompleter("releases"), new StringsCompleter("filter", "sort"), new NullCompleter()));
-
-		// completers.add(new ArgumentCompleter(new StringsCompleter("go_to"),
-		// new StringsCompleter(Sprint.getSprints(release)), new
-		// NullCompleter()));
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("change_status_to"),
 				new StringsCompleter(State.values), new NullCompleter()));
+
+		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"),
+				new StringsCompleter(UserStory.getUserStories(sprint)), new NullCompleter()));
 
 		return completers;
 	}

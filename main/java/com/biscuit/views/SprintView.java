@@ -6,8 +6,11 @@ import java.util.List;
 import com.biscuit.commands.sprint.ChangeStatusSprint;
 import com.biscuit.commands.sprint.EditSprint;
 import com.biscuit.commands.sprint.ShowSprint;
+import com.biscuit.commands.userStory.AddUserStoryToSprint;
+import com.biscuit.commands.userStory.ListUserStories;
 import com.biscuit.factories.SprintCompleterFactory;
 import com.biscuit.models.Sprint;
+import com.biscuit.models.UserStory;
 import com.biscuit.models.enums.State;
 
 import jline.console.completer.Completer;
@@ -35,7 +38,27 @@ public class SprintView extends View {
 			return execute1Keyword(words);
 		} else if (words.length == 2) {
 			return execute2Keywords(words);
+		} else if (words.length == 4) {
+			return execute4Keyword(words);
 		}
+
+		return false;
+	}
+
+
+	private boolean execute4Keyword(String[] words) throws IOException {
+		if (words[0].equals("list")) {
+			if (words[1].equals("user_stories")) {
+				if (words[2].equals("filter")) {
+					(new ListUserStories(sprint, "", true, words[3], false, "")).execute();
+					return true;
+				} else if (words[2].equals("sort")) {
+					(new ListUserStories(sprint, "", false, "", true, words[3])).execute();
+					return true;
+				}
+			}
+		}
+
 		return false;
 	}
 
@@ -44,6 +67,29 @@ public class SprintView extends View {
 		if (words[0].equals("change_status_to")) {
 			if (State.values.contains(words[1])) {
 				(new ChangeStatusSprint(sprint, State.valueOf(words[1].toUpperCase()))).execute();
+				return true;
+			}
+		} else if (words[0].equals("list")) {
+			if (words[1].equals("user_stories")) {
+				(new ListUserStories(sprint, "")).execute();
+				return true;
+			}
+		} else if (words[0].equals("add")) {
+			if (words[1].equals("user_story")) {
+				(new AddUserStoryToSprint(reader, sprint)).execute();
+				return true;
+			}
+		} else if (words[0].equals("go_to")) {
+			if (UserStory.getUserStories(sprint).contains(words[1])) {
+				UserStory us = UserStory.find(sprint, words[1]);
+				if (us == null) {
+					return false;
+				}
+
+				us.project = sprint.project;
+
+				UserStroryView usv = new UserStroryView(this, us);
+				usv.view();
 				return true;
 			}
 		}
@@ -60,6 +106,9 @@ public class SprintView extends View {
 			this.name = sprint.name;
 			updatePromptViews();
 
+			return true;
+		} else if (words[0].equals("user_stories")) {
+			(new ListUserStories(sprint, "")).execute();
 			return true;
 		}
 		return false;

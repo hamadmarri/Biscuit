@@ -42,8 +42,18 @@ public class UserStory {
 	}
 
 
+	public static List<String> getUserStories(Sprint sprint) {
+		return sprint.userStories.stream().map(us -> us.title).collect(Collectors.toList());
+	}
+
+
 	public static UserStory find(Backlog backlog, String title) {
 		return backlog.userStories.stream().filter(us -> us.title.equals(title)).findAny().orElse(null);
+	}
+
+
+	public static UserStory find(Sprint sprint, String title) {
+		return sprint.userStories.stream().filter(us -> us.title.equals(title)).findAny().orElse(null);
 	}
 
 
