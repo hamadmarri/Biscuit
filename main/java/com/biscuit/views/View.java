@@ -30,7 +30,7 @@ public abstract class View {
 		promptViews = new ArrayList<String>();
 		universalCompleters = new ArrayList<Completer>();
 		completer = null;
-
+ 
 		try {
 			reader = new ConsoleReader();
 			addUniversalCompleters();
@@ -124,7 +124,7 @@ public abstract class View {
 				reader.clearScreen();
 				return true;
 			} else if (words[0].equals("exit")) {
-				System.out.println(ColorCodes.BLUE + "See ya!\n");
+				System.out.println(ColorCodes.BLUE + "See ya!\n" + ColorCodes.RESET);
 				reader.shutdown();
 				System.exit(0);
 			} else if (words[0].equals("dashboard")) {

@@ -155,6 +155,12 @@ public class ProjectView extends View {
 				rsv.view();
 
 				return true;
+			} else if (words[1].equals("sprints")) {
+
+				SprintsView ssv = new SprintsView(this, project);
+				ssv.view();
+
+				return true;
 			}
 		} else if (words[0].equals("show")) {
 			if (words[1].equals("backlog")) {
