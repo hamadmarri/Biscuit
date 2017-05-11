@@ -161,6 +161,12 @@ public class ProjectView extends View {
 				ssv.view();
 
 				return true;
+			} else if (words[1].equals("planner")) {
+
+				PlannerView pv = new PlannerView(this, project);
+				pv.view();
+
+				return true;
 			}
 		} else if (words[0].equals("show")) {
 			if (words[1].equals("backlog")) {
