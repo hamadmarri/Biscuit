@@ -30,7 +30,7 @@ public abstract class View {
 		promptViews = new ArrayList<String>();
 		universalCompleters = new ArrayList<Completer>();
 		completer = null;
- 
+
 		try {
 			reader = new ConsoleReader();
 			addUniversalCompleters();
@@ -40,12 +40,10 @@ public abstract class View {
 		}
 	}
 
-
 	public View(View previousView, String name) {
 		this.previousView = previousView;
 		this.name = name;
 	}
-
 
 	public void view() {
 		if (!isViewed) {
@@ -62,19 +60,16 @@ public abstract class View {
 		read();
 	}
 
-
 	protected void clearCompleters() {
 		if (completer != null)
 			reader.removeCompleter(completer);
 	}
-
 
 	private static void addUniversalCompleters() {
 		universalCompleters.addAll(UniversalCompleterFactory.getUniversalCompleters());
 		completer = new AggregateCompleter(universalCompleters);
 		reader.addCompleter(completer);
 	}
-
 
 	protected void addCompleters() {
 		List<Completer> completers = new ArrayList<Completer>();
@@ -86,9 +81,12 @@ public abstract class View {
 		reader.addCompleter(completer);
 	}
 
-
 	abstract void addSpecificCompleters(List<Completer> completers);
 
+	protected void resetCompleters() {
+		clearCompleters();
+		addCompleters();
+	}
 
 	private void read() {
 		try {
@@ -115,7 +113,6 @@ public abstract class View {
 			e.printStackTrace();
 		}
 	}
-
 
 	private boolean checkIfUnivesalCommand(String[] words) throws IOException {
 
@@ -144,7 +141,6 @@ public abstract class View {
 		return false;
 	}
 
-
 	private void gotoDashboard() throws IOException {
 		if (this.name.equals("Dashboard")) {
 			reader.println("you are in the dashboard already!");
@@ -159,21 +155,17 @@ public abstract class View {
 		}
 	}
 
-
 	abstract boolean executeCommand(String[] words) throws IOException;
-
 
 	void addPromptViews() {
 		promptViews.add(name);
 	}
-
 
 	void updatePromptViews() {
 		promptViews.remove(promptViews.size() - 1);
 		promptViews.add(name);
 		setPrompt();
 	}
-
 
 	static void setPrompt() {
 		StringBuilder prompt = new StringBuilder();
@@ -190,7 +182,6 @@ public abstract class View {
 
 		reader.setPrompt(prompt.toString());
 	}
-
 
 	public void close() {
 		if (previousView != null) {

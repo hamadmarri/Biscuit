@@ -40,10 +40,7 @@ public class ReleasesView extends View {
 		if (words[0].equals("add")) {
 			if (words[1].equals("release")) {
 				(new AddRelease(reader, project)).execute();
-				
-				// to reset completers
-				clearCompleters();
-				addCompleters();
+				resetCompleters();
 				
 				return true;
 			}

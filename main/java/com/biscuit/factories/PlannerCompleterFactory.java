@@ -18,26 +18,21 @@ public class PlannerCompleterFactory {
 	public static List<Completer> getPlannerCompleters(Project project) {
 		List<Completer> completers = new ArrayList<Completer>();
 
-		completers.add(new ArgumentCompleter(
-				new StringsCompleter("back", "plan", "releases", "sprints", "user_stories", "backlog", "auto_plan"),
+		completers.add(new ArgumentCompleter(new StringsCompleter("back", "plan", "releases", "sprints", "user_stories", "backlog", "auto_plan"),
 				new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("show"),
-				new StringsCompleter("plan", "releases", "sprints", "user_stories", "backlog"), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("show"), new StringsCompleter("plan", "releases", "sprints", "user_stories", "backlog"),
+				new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("add"),
-				new StringsCompleter("release", "sprint", "user_story"), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("add"), new StringsCompleter("release", "sprint", "user_story"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("move"),
-				new StringsCompleter(UserStory.getUserStories(project.backlog)), new StringsCompleter("to"),
-				new StringsCompleter(Sprint.getSprints(project)), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("move"), new StringsCompleter(UserStory.getUserStories(project.backlog)),
+				new StringsCompleter("to"), new StringsCompleter(Sprint.getSprints(project)), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("move"),
-				new StringsCompleter(Sprint.getSprints(project)), new StringsCompleter("to"),
+		completers.add(new ArgumentCompleter(new StringsCompleter("move"), new StringsCompleter(Sprint.getSprints(project)), new StringsCompleter("to"),
 				new StringsCompleter(Release.getReleases(project)), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("unplan"),
-				new StringsCompleter(getUnplanOptions(project)), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("unplan"), new StringsCompleter(getUnplanOptions(project)), new NullCompleter()));
 
 		return completers;
 
@@ -47,7 +42,7 @@ public class PlannerCompleterFactory {
 		List<String> sprints_userstories_all = new ArrayList<>();
 
 		sprints_userstories_all.addAll(Sprint.getSprints(project));
-		sprints_userstories_all.addAll(UserStory.getUserStories(project.backlog));
+		sprints_userstories_all.addAll(project.getPlannedUserStoriesNames());
 		sprints_userstories_all.add("all");
 
 		return sprints_userstories_all;

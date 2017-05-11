@@ -77,10 +77,7 @@ public class SprintView extends View {
 		} else if (words[0].equals("add")) {
 			if (words[1].equals("user_story")) {
 				(new AddUserStoryToSprint(reader, sprint)).execute();
-				
-				// to reset completers
-				clearCompleters();
-				addCompleters();
+				resetCompleters();
 				
 				return true;
 			}

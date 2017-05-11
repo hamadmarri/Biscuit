@@ -15,18 +15,15 @@ public class BacklogView extends View {
 
 	Backlog backlog = null;
 
-
 	public BacklogView(View previousView, Backlog backlog) {
 		super(previousView, "backlog");
 		this.backlog = backlog;
 	}
 
-
 	@Override
 	void addSpecificCompleters(List<Completer> completers) {
 		completers.addAll(BacklogCompleterFactory.getBacklogCompleters(backlog));
 	}
-
 
 	@Override
 	boolean executeCommand(String[] words) throws IOException {
@@ -40,7 +37,6 @@ public class BacklogView extends View {
 
 		return false;
 	}
-
 
 	private boolean execute4Keyword(String[] words) throws IOException {
 		if (words[0].equals("list")) {
@@ -58,16 +54,12 @@ public class BacklogView extends View {
 		return false;
 	}
 
-
 	private boolean execute2Keyword(String[] words) throws IOException {
 		if (words[0].equals("add")) {
 			if (words[1].equals("user_story")) {
 				(new AddUserStoryToBacklog(reader, this.backlog.project)).execute();
-				
-				// to reset completers
-				clearCompleters();
-				addCompleters();
-				
+				resetCompleters();
+
 				return true;
 			}
 		} else if (words[0].equals("list")) {
@@ -92,7 +84,6 @@ public class BacklogView extends View {
 
 		return false;
 	}
-
 
 	private boolean execute1Keyword(String[] words) throws IOException {
 		if (words[0].equals("user_stories")) {

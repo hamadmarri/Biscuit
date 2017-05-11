@@ -127,18 +127,12 @@ public class ProjectView extends View {
 				return true;
 			} else if (words[1].equals("release")) {
 				(new AddRelease(reader, project)).execute();
-				
-				// to reset completers
-				clearCompleters();
-				addCompleters();
+				resetCompleters();
 				
 				return true;
 			} else if (words[1].equals("sprint")) {
 				(new AddSprint(reader, project)).execute();
-				
-				// to reset completers
-				clearCompleters();
-				addCompleters();
+				resetCompleters();
 				
 				return true;
 			}

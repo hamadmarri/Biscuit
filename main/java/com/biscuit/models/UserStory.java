@@ -36,26 +36,21 @@ public class UserStory {
 				"due_date", "points" };
 	}
 
-
 	public static List<String> getUserStories(Backlog backlog) {
 		return backlog.userStories.stream().map(us -> us.title).collect(Collectors.toList());
 	}
-
 
 	public static List<String> getUserStories(Sprint sprint) {
 		return sprint.userStories.stream().map(us -> us.title).collect(Collectors.toList());
 	}
 
-
 	public static UserStory find(Backlog backlog, String title) {
 		return backlog.userStories.stream().filter(us -> us.title.equals(title)).findAny().orElse(null);
 	}
 
-
 	public static UserStory find(Sprint sprint, String title) {
 		return sprint.userStories.stream().filter(us -> us.title.equals(title)).findAny().orElse(null);
 	}
-
 
 	public void save() {
 		project.save();

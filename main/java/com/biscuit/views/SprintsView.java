@@ -36,10 +36,7 @@ public class SprintsView extends View {
 		if (words[0].equals("add")) {
 			if (words[1].equals("sprint")) {
 				(new AddSprint(reader, project)).execute();
-
-				// to reset completers
-				clearCompleters();
-				addCompleters();
+				resetCompleters();
 
 				return true;
 			}
