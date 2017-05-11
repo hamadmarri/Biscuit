@@ -3,6 +3,7 @@ package com.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.biscuit.commands.planner.MoveSprintToRelease;
 import com.biscuit.commands.planner.MoveUserStoryToSprint;
 import com.biscuit.commands.planner.UnplanUserStory;
 import com.biscuit.commands.release.ListReleases;
@@ -10,6 +11,7 @@ import com.biscuit.commands.sprint.ListSprints;
 import com.biscuit.commands.userStory.ListUserStories;
 import com.biscuit.factories.PlannerCompleterFactory;
 import com.biscuit.models.Project;
+import com.biscuit.models.Release;
 import com.biscuit.models.Sprint;
 import com.biscuit.models.UserStory;
 
@@ -45,6 +47,13 @@ public class PlannerView extends View {
 		if (words[0].equals("move")) {
 			if (UserStory.getUserStories(project.backlog).contains(words[1]) && Sprint.getSprints(project).contains(words[3])) {
 				if ((new MoveUserStoryToSprint(reader, project, words[1], words[3])).execute()) {
+					resetCompleters();
+					return true;
+				} else {
+					return false;
+				}
+			} else if (Sprint.getSprints(project).contains(words[1]) && Release.getReleases(project).contains(words[3])) {
+				if ((new MoveSprintToRelease(reader, project, words[1], words[3])).execute()) {
 					resetCompleters();
 					return true;
 				} else {
