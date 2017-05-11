@@ -19,10 +19,11 @@ public class PlannerCompleterFactory {
 		List<Completer> completers = new ArrayList<Completer>();
 
 		completers.add(new ArgumentCompleter(
-				new StringsCompleter("plan", "releases", "sprints", "user_stories", "auto_plan"), new NullCompleter()));
+				new StringsCompleter("back", "plan", "releases", "sprints", "user_stories", "backlog", "auto_plan"),
+				new NullCompleter()));
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("show"),
-				new StringsCompleter("plan", "releases", "sprints", "user_stories"), new NullCompleter()));
+				new StringsCompleter("plan", "releases", "sprints", "user_stories", "backlog"), new NullCompleter()));
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("add"),
 				new StringsCompleter("release", "sprint", "user_story"), new NullCompleter()));
