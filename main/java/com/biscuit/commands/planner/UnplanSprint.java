@@ -13,49 +13,47 @@ import com.biscuit.models.services.Finder.Sprints;
 
 import jline.console.ConsoleReader;
 
-public class MoveSprintToRelease implements Command {
+public class UnplanSprint implements Command {
 
 	ConsoleReader reader = null;
 	Project project = null;
 	private String sprintName;
-	private String releaseNam;
 
 
-	public MoveSprintToRelease(ConsoleReader reader, Project project, String sprintName, String releaseName) {
+	public UnplanSprint(ConsoleReader reader, Project project, String sprintName) {
 		super();
 		this.reader = reader;
 		this.project = project;
 		this.sprintName = sprintName;
-		this.releaseNam = releaseName;
 	}
 
 
 	@Override
 	public boolean execute() throws IOException {
 
-		// get sprint
-		Sprint s = Sprints.find(project, sprintName);
+		// get the release
+		Release r = Releases.findContains(project, sprintName);
 
-		// get release
-		Release r = Releases.find(project, releaseNam);
+		// get sprint
+		Sprint s = Sprints.find(r, sprintName);
 
 		if (s == null || r == null) {
 			return false;
 		}
 
-		// remove it from geneic list in project
-		project.sprints.remove(s);
+		// add it to geneic list in project
+		project.sprints.add(s);
 
-		// add it to release
-		r.sprints.add(s);
+		// remove it from release
+		r.sprints.remove(s);
 
-		// change state to planned
-		s.state = State.PLANNED;
+		// change state to unplanned
+		s.state = State.UNPLANNED;
 
 		// save project
 		project.save();
 
-		reader.println(ColorCodes.GREEN + "Sprint \"" + sprintName + "\" has been moved to release " + releaseNam + "!" + ColorCodes.RESET);
+		reader.println(ColorCodes.GREEN + "Sprint \"" + sprintName + "\" has been removed from release " + r.name + "!" + ColorCodes.RESET);
 
 		return true;
 	}

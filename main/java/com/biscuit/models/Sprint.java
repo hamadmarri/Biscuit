@@ -7,7 +7,6 @@ package com.biscuit.models;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.biscuit.models.enums.State;
 
@@ -36,31 +35,6 @@ public class Sprint {
 	static {
 		fields = new String[] { "name", "description", "state", "start_date", "due_date", "assigned_effort", "velocity" };
 		fieldsAsHeader = new String[] { "Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort", "Velocity" };
-	}
-
-	public static List<String> getSprints(Project project) {
-		return project.sprints.stream().map(s -> s.name).collect(Collectors.toList());
-	}
-
-	public static List<String> getSprints(Release release) {
-		return release.sprints.stream().map(s -> s.name).collect(Collectors.toList());
-	}
-
-	public static Sprint find(Project project, String name) {
-		return project.sprints.stream().filter(s -> s.name.equals(name)).findAny().orElse(null);
-	}
-
-	public static Sprint findSprintContains(Project project, String userStoryName) {
-		for (Sprint s : project.sprints) {
-			for (UserStory us : s.userStories) {
-				if (us.title.equals(userStoryName)) {
-					return s;
-				}
-			}
-
-		}
-
-		return null;
 	}
 
 	public void addUserStory(UserStory userStory) {

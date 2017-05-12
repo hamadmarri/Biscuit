@@ -24,6 +24,7 @@ public class ListUserStories implements Command {
 
 	Backlog backlog = null;
 	Sprint sprint = null;
+	List<UserStory> userStories = null;
 	String title = "";
 	boolean isFilter = false;
 	boolean isSort = false;
@@ -47,8 +48,14 @@ public class ListUserStories implements Command {
 	}
 
 
-	public ListUserStories(Backlog backlog, String title, boolean isFilter, String filterBy, boolean isSort,
-			String sortBy) {
+	public ListUserStories(List<UserStory> userStories, String title) {
+		super();
+		this.userStories = userStories;
+		this.title = title;
+	}
+
+
+	public ListUserStories(Backlog backlog, String title, boolean isFilter, String filterBy, boolean isSort, String sortBy) {
 		super();
 		this.backlog = backlog;
 		this.title = title;
@@ -59,10 +66,20 @@ public class ListUserStories implements Command {
 	}
 
 
-	public ListUserStories(Sprint sprint, String title, boolean isFilter, String filterBy, boolean isSort,
-			String sortBy) {
+	public ListUserStories(Sprint sprint, String title, boolean isFilter, String filterBy, boolean isSort, String sortBy) {
 		super();
 		this.sprint = sprint;
+		this.title = title;
+		this.isFilter = isFilter;
+		this.filterBy = filterBy.toLowerCase();
+		this.isSort = isSort;
+		this.sortBy = sortBy.toLowerCase();
+	}
+
+
+	public ListUserStories(List<UserStory> userStories, String title, boolean isFilter, String filterBy, boolean isSort, String sortBy) {
+		super();
+		this.userStories = userStories;
 		this.title = title;
 		this.isFilter = isFilter;
 		this.filterBy = filterBy.toLowerCase();
@@ -83,8 +100,10 @@ public class ListUserStories implements Command {
 			userStories.addAll(backlog.userStories);
 		} else if (sprint != null) {
 			userStories.addAll(sprint.userStories);
+		} else if (this.userStories != null) {
+			userStories = this.userStories;
 		} else {
-			System.err.println("error: backlog and sprint are null");
+			System.err.println("error: backlog, sprint, and userStories are null");
 			return false;
 		}
 
@@ -98,12 +117,11 @@ public class ListUserStories implements Command {
 
 		at.addRule();
 		if (!this.title.isEmpty()) {
-			at.addRow(null, null, null, null, null, null, null, this.title)
-					.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
+			at.addRow(null, null, null, null, null, null, null, this.title).setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 			at.addRule();
 		}
-		at.addRow("Title", "Description", "State", "Business Value", "Initiated Date", "Planned Date", "Due Date",
-				"Points").setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c' });
+		at.addRow("Title", "Description", "State", "Business Value", "Initiated Date", "Planned Date", "Due Date", "Points")
+				.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c' });
 
 		if (userStories.size() == 0) {
 			String message;
@@ -118,9 +136,8 @@ public class ListUserStories implements Command {
 			for (UserStory us : userStories) {
 				at.addRule();
 
-				at.addRow(us.title, us.description, us.state, us.businessValue,
-						DateService.getDateAsString(us.initiatedDate), DateService.getDateAsString(us.plannedDate),
-						DateService.getDateAsString(us.dueDate), us.points)
+				at.addRow(us.title, us.description, us.state, us.businessValue, DateService.getDateAsString(us.initiatedDate),
+						DateService.getDateAsString(us.plannedDate), DateService.getDateAsString(us.dueDate), us.points)
 						.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c' });
 			} // for
 		}
@@ -150,8 +167,7 @@ public class ListUserStories implements Command {
 		Comparator<UserStory> byTitle = (us1, us2) -> us1.title.compareTo(us2.title);
 		Comparator<UserStory> byDescription = (us1, us2) -> us1.description.compareTo(us2.description);
 		Comparator<UserStory> byState = (us1, us2) -> Integer.compare(us1.state.getValue(), us2.state.getValue());
-		Comparator<UserStory> byBusinessValue = (us1, us2) -> Integer.compare(us1.businessValue.getValue(),
-				us2.businessValue.getValue());
+		Comparator<UserStory> byBusinessValue = (us1, us2) -> Integer.compare(us1.businessValue.getValue(), us2.businessValue.getValue());
 		Comparator<UserStory> byInitiatedDate = (us1, us2) -> us1.initiatedDate.compareTo(us2.initiatedDate);
 		Comparator<UserStory> byPlannedDate = (us1, us2) -> us1.plannedDate.compareTo(us2.plannedDate);
 		Comparator<UserStory> byDueDate = (us1, us2) -> us1.dueDate.compareTo(us2.dueDate);
@@ -195,12 +211,9 @@ public class ListUserStories implements Command {
 
 	private void doFilter(List<UserStory> userStories) {
 		List<UserStory> filtered = userStories.stream()
-				.filter(us -> us.title.toLowerCase().contains(filterBy)
-						|| us.description.toLowerCase().contains(filterBy)
-						|| us.state.toString().toLowerCase().contains(filterBy)
-						|| us.businessValue.toString().toLowerCase().contains(filterBy)
-						|| String.valueOf(us.points).contains(filterBy)
-						|| DateService.getDateAsString(us.initiatedDate).toLowerCase().contains(filterBy)
+				.filter(us -> us.title.toLowerCase().contains(filterBy) || us.description.toLowerCase().contains(filterBy)
+						|| us.state.toString().toLowerCase().contains(filterBy) || us.businessValue.toString().toLowerCase().contains(filterBy)
+						|| String.valueOf(us.points).contains(filterBy) || DateService.getDateAsString(us.initiatedDate).toLowerCase().contains(filterBy)
 						|| DateService.getDateAsString(us.plannedDate).toLowerCase().contains(filterBy)
 						|| DateService.getDateAsString(us.dueDate).toLowerCase().contains(filterBy))
 				.collect(Collectors.toList());

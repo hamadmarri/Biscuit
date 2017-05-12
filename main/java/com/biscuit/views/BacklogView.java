@@ -8,6 +8,7 @@ import com.biscuit.commands.userStory.ListUserStories;
 import com.biscuit.factories.BacklogCompleterFactory;
 import com.biscuit.models.Backlog;
 import com.biscuit.models.UserStory;
+import com.biscuit.models.services.Finder.UserStories;
 
 import jline.console.completer.Completer;
 
@@ -15,15 +16,18 @@ public class BacklogView extends View {
 
 	Backlog backlog = null;
 
+
 	public BacklogView(View previousView, Backlog backlog) {
 		super(previousView, "backlog");
 		this.backlog = backlog;
 	}
 
+
 	@Override
 	void addSpecificCompleters(List<Completer> completers) {
 		completers.addAll(BacklogCompleterFactory.getBacklogCompleters(backlog));
 	}
+
 
 	@Override
 	boolean executeCommand(String[] words) throws IOException {
@@ -37,6 +41,7 @@ public class BacklogView extends View {
 
 		return false;
 	}
+
 
 	private boolean execute4Keyword(String[] words) throws IOException {
 		if (words[0].equals("list")) {
@@ -54,6 +59,7 @@ public class BacklogView extends View {
 		return false;
 	}
 
+
 	private boolean execute2Keyword(String[] words) throws IOException {
 		if (words[0].equals("add")) {
 			if (words[1].equals("user_story")) {
@@ -68,8 +74,8 @@ public class BacklogView extends View {
 				return true;
 			}
 		} else if (words[0].equals("go_to")) {
-			if (UserStory.getUserStories(backlog).contains(words[1])) {
-				UserStory us = UserStory.find(backlog, words[1]);
+			if (UserStories.getAllNames(backlog).contains(words[1])) {
+				UserStory us = UserStories.find(backlog, words[1]);
 				if (us == null) {
 					return false;
 				}
@@ -84,6 +90,7 @@ public class BacklogView extends View {
 
 		return false;
 	}
+
 
 	private boolean execute1Keyword(String[] words) throws IOException {
 		if (words[0].equals("user_stories")) {

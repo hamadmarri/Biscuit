@@ -7,6 +7,7 @@ import com.biscuit.commands.sprint.AddSprint;
 import com.biscuit.factories.SprintsCompleterFactory;
 import com.biscuit.models.Project;
 import com.biscuit.models.Sprint;
+import com.biscuit.models.services.Finder.Sprints;
 
 import jline.console.completer.Completer;
 
@@ -14,15 +15,18 @@ public class SprintsView extends View {
 
 	Project project = null;
 
+
 	public SprintsView(View previousView, Project p) {
 		super(previousView, "sprints");
 		this.project = p;
 	}
 
+
 	@Override
 	void addSpecificCompleters(List<Completer> completers) {
 		completers.addAll(SprintsCompleterFactory.getSprintsCompleters(project));
 	}
+
 
 	@Override
 	boolean executeCommand(String[] words) throws IOException {
@@ -31,6 +35,7 @@ public class SprintsView extends View {
 		}
 		return false;
 	}
+
 
 	private boolean execute2Keywords(String[] words) throws IOException {
 		if (words[0].equals("add")) {
@@ -41,8 +46,8 @@ public class SprintsView extends View {
 				return true;
 			}
 		} else if (words[0].equals("go_to")) {
-			if (Sprint.getSprints(project).contains(words[1])) {
-				Sprint s = Sprint.find(project, words[1]);
+			if (Sprints.getAllNames(project).contains(words[1])) {
+				Sprint s = Sprints.find(project, words[1]);
 				if (s == null) {
 					return false;
 				}

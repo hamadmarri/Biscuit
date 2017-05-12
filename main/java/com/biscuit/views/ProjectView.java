@@ -17,6 +17,8 @@ import com.biscuit.factories.ProjectCompleterFactory;
 import com.biscuit.models.Project;
 import com.biscuit.models.Release;
 import com.biscuit.models.Sprint;
+import com.biscuit.models.services.Finder.Releases;
+import com.biscuit.models.services.Finder.Sprints;
 
 import jline.console.completer.Completer;
 
@@ -89,8 +91,8 @@ public class ProjectView extends View {
 	private boolean execute3Keywords(String[] words) {
 		if (words[0].equals("go_to")) {
 			if (words[1].equals("release")) {
-				if (Release.getReleases(project).contains(words[2])) {
-					Release r = Release.find(project, words[2]);
+				if (Releases.getAllNames(project).contains(words[2])) {
+					Release r = Releases.find(project, words[2]);
 					if (r == null) {
 						return false;
 					}
@@ -102,8 +104,8 @@ public class ProjectView extends View {
 					return true;
 				}
 			} else if (words[1].equals("sprint")) {
-				if (Sprint.getSprints(project).contains(words[2])) {
-					Sprint s = Sprint.find(project, words[2]);
+				if (Sprints.getAllNames(project).contains(words[2])) {
+					Sprint s = Sprints.find(project, words[2]);
 					if (s == null) {
 						return false;
 					}
@@ -128,15 +130,15 @@ public class ProjectView extends View {
 			} else if (words[1].equals("release")) {
 				(new AddRelease(reader, project)).execute();
 				resetCompleters();
-				
+
 				return true;
 			} else if (words[1].equals("sprint")) {
 				(new AddSprint(reader, project)).execute();
 				resetCompleters();
-				
+
 				return true;
 			}
-			
+
 		} else if (words[0].equals("go_to")) {
 			if (words[1].equals("backlog")) {
 				this.project.backlog.project = this.project;

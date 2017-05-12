@@ -8,6 +8,8 @@ import com.biscuit.models.Project;
 import com.biscuit.models.Sprint;
 import com.biscuit.models.UserStory;
 import com.biscuit.models.enums.State;
+import com.biscuit.models.services.Finder.Sprints;
+import com.biscuit.models.services.Finder.UserStories;
 
 import jline.console.ConsoleReader;
 
@@ -18,6 +20,7 @@ public class UnplanUserStory implements Command {
 	private String userStoryName;
 	private String sprintName;
 
+
 	public UnplanUserStory(ConsoleReader reader, Project project, String userStoryName) {
 		super();
 		this.reader = reader;
@@ -25,14 +28,15 @@ public class UnplanUserStory implements Command {
 		this.userStoryName = userStoryName;
 	}
 
+
 	@Override
 	public boolean execute() throws IOException {
 
 		// get sprint
-		Sprint s = Sprint.findSprintContains(project, userStoryName);
+		Sprint s = Sprints.findContains(project, userStoryName);
 
 		// get the user story
-		UserStory us = UserStory.find(s, userStoryName);
+		UserStory us = UserStories.find(s, userStoryName);
 
 		if (us == null || s == null) {
 			return false;

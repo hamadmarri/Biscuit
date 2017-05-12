@@ -6,7 +6,6 @@ package com.biscuit.models;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.biscuit.models.enums.State;
 
@@ -36,16 +35,6 @@ public class Task {
 		fields[4] = "planned_date";
 		fields[5] = "due_date";
 		fields[6] = "estimated_time";
-	}
-
-
-	public static List<String> getTasks(UserStory us) {
-		return us.tasks.stream().map(t -> t.title).collect(Collectors.toList());
-	}
-
-
-	public static Task find(UserStory us, String title) {
-		return us.tasks.stream().filter(t -> t.title.equals(title)).findAny().orElse(null);
 	}
 
 

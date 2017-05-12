@@ -12,6 +12,7 @@ import com.biscuit.factories.SprintCompleterFactory;
 import com.biscuit.models.Sprint;
 import com.biscuit.models.UserStory;
 import com.biscuit.models.enums.State;
+import com.biscuit.models.services.Finder.UserStories;
 
 import jline.console.completer.Completer;
 
@@ -78,12 +79,12 @@ public class SprintView extends View {
 			if (words[1].equals("user_story")) {
 				(new AddUserStoryToSprint(reader, sprint)).execute();
 				resetCompleters();
-				
+
 				return true;
 			}
 		} else if (words[0].equals("go_to")) {
-			if (UserStory.getUserStories(sprint).contains(words[1])) {
-				UserStory us = UserStory.find(sprint, words[1]);
+			if (UserStories.getAllNames(sprint).contains(words[1])) {
+				UserStory us = UserStories.find(sprint, words[1]);
 				if (us == null) {
 					return false;
 				}

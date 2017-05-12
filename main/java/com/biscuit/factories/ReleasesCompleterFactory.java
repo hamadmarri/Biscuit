@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.biscuit.models.Project;
 import com.biscuit.models.Release;
+import com.biscuit.models.services.Finder.Releases;
 
 import jline.console.completer.ArgumentCompleter;
 import jline.console.completer.Completer;
@@ -18,26 +19,22 @@ public class ReleasesCompleterFactory {
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("summary", "back"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("past"),
-				new StringsCompleter("filter", "sort"), new NullCompleter()));
+		completers.add(
+				new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("past"), new StringsCompleter("filter", "sort"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("future"),
-				new StringsCompleter("filter", "sort"), new NullCompleter()));
-
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("current"),
+		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("future"), new StringsCompleter("filter", "sort"),
 				new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("all"),
-				new StringsCompleter("filter"), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("current"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("all"),
-				new StringsCompleter("sort"), new StringsCompleter(Release.fields), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("all"), new StringsCompleter("filter"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("add"), new StringsCompleter("release"),
-				new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("all"), new StringsCompleter("sort"),
+				new StringsCompleter(Release.fields), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"),
-				new StringsCompleter(Release.getReleases(project)), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("add"), new StringsCompleter("release"), new NullCompleter()));
+
+		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter(Releases.getAllNames(project)), new NullCompleter()));
 
 		return completers;
 

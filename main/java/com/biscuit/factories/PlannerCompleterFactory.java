@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.biscuit.models.Project;
-import com.biscuit.models.Release;
-import com.biscuit.models.Sprint;
-import com.biscuit.models.UserStory;
+import com.biscuit.models.services.Finder.Releases;
+import com.biscuit.models.services.Finder.Sprints;
+import com.biscuit.models.services.Finder.UserStories;
 
 import jline.console.completer.ArgumentCompleter;
 import jline.console.completer.Completer;
@@ -26,11 +26,11 @@ public class PlannerCompleterFactory {
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("add"), new StringsCompleter("release", "sprint", "user_story"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("move"), new StringsCompleter(UserStory.getUserStories(project.backlog)),
-				new StringsCompleter("to"), new StringsCompleter(Sprint.getSprints(project)), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("move"), new StringsCompleter(UserStories.getAllNames(project.backlog)),
+				new StringsCompleter("to"), new StringsCompleter(Sprints.getAllNames(project)), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("move"), new StringsCompleter(Sprint.getSprints(project)), new StringsCompleter("to"),
-				new StringsCompleter(Release.getReleases(project)), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("move"), new StringsCompleter(Sprints.getAllNames(project)), new StringsCompleter("to"),
+				new StringsCompleter(Releases.getAllNames(project)), new NullCompleter()));
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("unplan"), new StringsCompleter(getUnplanOptions(project)), new NullCompleter()));
 
@@ -38,11 +38,12 @@ public class PlannerCompleterFactory {
 
 	}
 
+
 	private static List<String> getUnplanOptions(Project project) {
 		List<String> sprints_userstories_all = new ArrayList<>();
 
-		sprints_userstories_all.addAll(Sprint.getSprints(project));
-		sprints_userstories_all.addAll(project.getPlannedUserStoriesNames());
+		sprints_userstories_all.addAll(Sprints.getPlannedNames(project));
+		sprints_userstories_all.addAll(UserStories.getPlannedNames(project));
 		sprints_userstories_all.add("all");
 
 		return sprints_userstories_all;

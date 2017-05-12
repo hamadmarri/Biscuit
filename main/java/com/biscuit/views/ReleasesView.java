@@ -7,6 +7,7 @@ import com.biscuit.commands.release.AddRelease;
 import com.biscuit.factories.ReleasesCompleterFactory;
 import com.biscuit.models.Project;
 import com.biscuit.models.Release;
+import com.biscuit.models.services.Finder.Releases;
 
 import jline.console.completer.Completer;
 
@@ -41,12 +42,12 @@ public class ReleasesView extends View {
 			if (words[1].equals("release")) {
 				(new AddRelease(reader, project)).execute();
 				resetCompleters();
-				
+
 				return true;
 			}
 		} else if (words[0].equals("go_to")) {
-			if (Release.getReleases(project).contains(words[1])) {
-				Release r = Release.find(project, words[1]);
+			if (Releases.getAllNames(project).contains(words[1])) {
+				Release r = Releases.find(project, words[1]);
 				if (r == null) {
 					return false;
 				}

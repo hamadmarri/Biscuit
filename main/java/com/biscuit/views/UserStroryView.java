@@ -12,6 +12,7 @@ import com.biscuit.factories.UserStoryCompleterFactory;
 import com.biscuit.models.Task;
 import com.biscuit.models.UserStory;
 import com.biscuit.models.enums.State;
+import com.biscuit.models.services.Finder.Tasks;
 
 import jline.console.completer.Completer;
 
@@ -48,8 +49,8 @@ public class UserStroryView extends View {
 	private boolean execute3Keywords(String[] words) {
 		if (words[0].equals("go_to")) {
 			if (words[1].equals("task")) {
-				if (Task.getTasks(userStory).contains(words[2])) {
-					Task t = Task.find(userStory, words[2]);
+				if (Tasks.getAllNames(userStory).contains(words[2])) {
+					Task t = Tasks.find(userStory, words[2]);
 					if (t == null) {
 						return false;
 					}
@@ -76,7 +77,7 @@ public class UserStroryView extends View {
 			if (words[1].equals("task")) {
 				(new AddTaskToUserStory(reader, userStory.project, userStory)).execute();
 				resetCompleters();
-				
+
 				return true;
 			}
 		}
