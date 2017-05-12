@@ -29,7 +29,7 @@ public class PlannerCompleterFactory {
 		completers.add(new ArgumentCompleter(new StringsCompleter("move"), new StringsCompleter(UserStories.getAllNames(project.backlog)),
 				new StringsCompleter("to"), new StringsCompleter(Sprints.getAllNames(project)), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("move"), new StringsCompleter(Sprints.getAllNames(project)), new StringsCompleter("to"),
+		completers.add(new ArgumentCompleter(new StringsCompleter("move"), new StringsCompleter(Sprints.getUnplannedNames(project)), new StringsCompleter("to"),
 				new StringsCompleter(Releases.getAllNames(project)), new NullCompleter()));
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("unplan"), new StringsCompleter(getUnplanOptions(project)), new NullCompleter()));

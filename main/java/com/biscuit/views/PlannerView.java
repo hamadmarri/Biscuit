@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.biscuit.commands.planner.MoveSprintToRelease;
 import com.biscuit.commands.planner.MoveUserStoryToSprint;
+import com.biscuit.commands.planner.ShowPlan;
 import com.biscuit.commands.planner.UnplanAll;
 import com.biscuit.commands.planner.UnplanSprint;
 import com.biscuit.commands.planner.UnplanUserStory;
@@ -85,6 +86,9 @@ public class PlannerView extends View {
 		} else if (words[0].equals("user_stories")) {
 			(new ListUserStories(UserStories.getAll(project), "All User Stories")).execute();
 			return true;
+		} else if (words[0].equals("plan")) {
+			(new ShowPlan(project)).execute();
+			return true;
 		}
 
 		return false;
@@ -104,6 +108,9 @@ public class PlannerView extends View {
 				return true;
 			} else if (words[1].equals("user_stories")) {
 				(new ListUserStories(UserStories.getAll(project), "All User Stories")).execute();
+				return true;
+			} else if (words[1].equals("plan")) {
+				(new ShowPlan(project)).execute();
 				return true;
 			}
 		} else if (words[0].equals("unplan")) {
