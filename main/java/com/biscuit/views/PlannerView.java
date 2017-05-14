@@ -6,6 +6,7 @@ import java.util.List;
 import com.biscuit.commands.planner.MoveSprintToRelease;
 import com.biscuit.commands.planner.MoveUserStoryToSprint;
 import com.biscuit.commands.planner.ShowPlan;
+import com.biscuit.commands.planner.ShowPlanDetails;
 import com.biscuit.commands.planner.UnplanAll;
 import com.biscuit.commands.planner.UnplanSprint;
 import com.biscuit.commands.planner.UnplanUserStory;
@@ -135,6 +136,11 @@ public class PlannerView extends View {
 				} else {
 					return false;
 				}
+			}
+		} else if (words[0].equals("plan")) {
+			if (words[1].equals("details")) {
+				(new ShowPlanDetails(project)).execute();
+				return true;
 			}
 		}
 

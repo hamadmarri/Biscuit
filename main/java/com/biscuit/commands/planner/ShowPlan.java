@@ -3,6 +3,7 @@ package com.biscuit.commands.planner;
 import java.io.IOException;
 import java.util.Iterator;
 
+import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
 import com.biscuit.models.Project;
 import com.biscuit.models.Release;
@@ -64,9 +65,9 @@ public class ShowPlan implements Command {
 
 		// print release name
 		if (isLastRelease) {
-			System.out.println(indent + "└ " + r.name);
+			System.out.println(indent + "└ " + ColorCodes.PURPLE + r.name + ColorCodes.RESET);
 		} else {
-			System.out.println(indent + "├ " + r.name);
+			System.out.println(indent + "├ " + ColorCodes.PURPLE + r.name + ColorCodes.RESET);
 		}
 
 		for (Iterator<Sprint> sItr = r.sprints.iterator(); sItr.hasNext();) {
@@ -81,9 +82,9 @@ public class ShowPlan implements Command {
 
 		// print sprint name
 		if (isLastSprint) {
-			System.out.println(indent + "└ " + s.name);
+			System.out.println(indent + "└ " + ColorCodes.GREEN + s.name + ColorCodes.RESET);
 		} else {
-			System.out.println(indent + "├ " + s.name);
+			System.out.println(indent + "├ " + ColorCodes.GREEN + s.name + ColorCodes.RESET);
 		}
 
 		for (Iterator<UserStory> usItr = s.userStories.iterator(); usItr.hasNext();) {
@@ -98,9 +99,9 @@ public class ShowPlan implements Command {
 
 		// print user story name
 		if (isLastUserStory) {
-			System.out.println(indent + "└ " + us.title);
+			System.out.println(indent + "└ " + ColorCodes.YELLOW + us.title + ColorCodes.RESET);
 		} else {
-			System.out.println(indent + "├ " + us.title);
+			System.out.println(indent + "├ " + ColorCodes.YELLOW + us.title + ColorCodes.RESET);
 		}
 	}
 

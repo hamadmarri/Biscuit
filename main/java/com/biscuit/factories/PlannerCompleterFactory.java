@@ -21,6 +21,8 @@ public class PlannerCompleterFactory {
 		completers.add(new ArgumentCompleter(new StringsCompleter("back", "plan", "releases", "sprints", "user_stories", "backlog", "auto_plan"),
 				new NullCompleter()));
 
+		completers.add(new ArgumentCompleter(new StringsCompleter("plan"), new StringsCompleter("details"), new NullCompleter()));
+
 		completers.add(new ArgumentCompleter(new StringsCompleter("show"), new StringsCompleter("plan", "releases", "sprints", "user_stories", "backlog"),
 				new NullCompleter()));
 
