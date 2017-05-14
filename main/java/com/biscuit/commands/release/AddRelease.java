@@ -46,6 +46,8 @@ public class AddRelease implements Command {
 			setDueDate();
 		}
 
+		release.assignedEffort = 0;
+
 		reader.setPrompt(prompt);
 
 		project.addRelease(release);
@@ -67,8 +69,8 @@ public class AddRelease implements Command {
 		reader.removeCompleter(oldCompleter);
 		reader.addCompleter(dateCompleter);
 
-		reader.setPrompt(ColorCodes.BLUE + "\ndue date:\n" + ColorCodes.YELLOW
-				+ "(hit Tab to see examples)\n(optional: leave it blank and hit enter)\n" + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "\ndue date:\n" + ColorCodes.YELLOW + "(hit Tab to see examples)\n(optional: leave it blank and hit enter)\n"
+				+ ColorCodes.RESET);
 
 		while ((line = reader.readLine()) != null) {
 			line = line.trim();
@@ -121,8 +123,8 @@ public class AddRelease implements Command {
 		reader.removeCompleter(oldCompleter);
 		reader.addCompleter(dateCompleter);
 
-		reader.setPrompt(ColorCodes.BLUE + "\nstart date:\n" + ColorCodes.YELLOW
-				+ "(hit Tab to see examples)\n(optional: leave it blank and hit enter)\n" + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "\nstart date:\n" + ColorCodes.YELLOW + "(hit Tab to see examples)\n(optional: leave it blank and hit enter)\n"
+				+ ColorCodes.RESET);
 
 		while ((line = reader.readLine()) != null) {
 			line = line.trim();
@@ -168,8 +170,7 @@ public class AddRelease implements Command {
 
 	private void setDescription(StringBuilder description) throws IOException {
 		String line;
-		reader.setPrompt(
-				ColorCodes.BLUE + "\ndescription:\n" + ColorCodes.YELLOW + "(\\q to end writing)\n" + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "\ndescription:\n" + ColorCodes.YELLOW + "(\\q to end writing)\n" + ColorCodes.RESET);
 
 		while ((line = reader.readLine()) != null) {
 			if (line.equals("\\q")) {

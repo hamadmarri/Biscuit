@@ -5,9 +5,11 @@ import java.io.IOException;
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
 import com.biscuit.models.Project;
+import com.biscuit.models.Release;
 import com.biscuit.models.Sprint;
 import com.biscuit.models.UserStory;
 import com.biscuit.models.enums.State;
+import com.biscuit.models.services.Finder.Releases;
 import com.biscuit.models.services.Finder.Sprints;
 import com.biscuit.models.services.Finder.UserStories;
 
@@ -39,6 +41,9 @@ public class MoveUserStoryToSprint implements Command {
 		// get sprint
 		Sprint s = Sprints.find(project, sprintName);
 
+		// get release of this sprint if any
+		Release r = Releases.findContains(project, s.name);
+
 		if (us == null || s == null) {
 			return false;
 		}
@@ -51,6 +56,14 @@ public class MoveUserStoryToSprint implements Command {
 
 		// change state to planned
 		us.state = State.PLANNED;
+
+		// update sprint assigned effort
+		s.assignedEffort += us.points;
+
+		// update release assigned effort
+		if (r != null) {
+			r.assignedEffort += us.points;
+		}
 
 		// save project
 		project.save();

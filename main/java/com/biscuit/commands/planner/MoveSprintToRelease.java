@@ -52,6 +52,9 @@ public class MoveSprintToRelease implements Command {
 		// change state to planned
 		s.state = State.PLANNED;
 
+		// update release assigned effort
+		r.assignedEffort += s.assignedEffort;
+
 		// save project
 		project.save();
 

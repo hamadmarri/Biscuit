@@ -74,6 +74,7 @@ public class DashboardView extends View {
 	private boolean checkIfProjectName(String word) {
 		if (Dashboard.getInstance().projectsNames.contains(word)) {
 			Project p = Project.load(word);
+			p.updateChildrenReferences();
 			ProjectView pv = new ProjectView(this, p);
 			pv.view();
 			return true;

@@ -97,7 +97,7 @@ public class ProjectView extends View {
 						return false;
 					}
 
-					r.project = project;
+//					r.project = project;
 
 					ReleaseView rv = new ReleaseView(this, r);
 					rv.view();
@@ -110,7 +110,7 @@ public class ProjectView extends View {
 						return false;
 					}
 
-					s.project = project;
+//					s.project = project;
 
 					SprintView sv = new SprintView(this, s);
 					sv.view();

@@ -50,6 +50,9 @@ public class UnplanSprint implements Command {
 		// change state to unplanned
 		s.state = State.UNPLANNED;
 
+		// update release assigned effort
+		r.assignedEffort -= s.assignedEffort;
+
 		// save project
 		project.save();
 

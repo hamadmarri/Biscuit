@@ -52,7 +52,7 @@ public class SprintsView extends View {
 					return false;
 				}
 
-				s.project = project;
+//				s.project = project;
 
 				SprintView sv = new SprintView(this, s);
 				sv.view();

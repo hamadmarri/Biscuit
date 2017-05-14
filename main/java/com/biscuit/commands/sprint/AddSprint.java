@@ -48,6 +48,7 @@ public class AddSprint implements Command {
 			}
 		}
 
+		sprint.assignedEffort = 0;
 		setVelocity();
 
 		reader.setPrompt(prompt);
@@ -71,8 +72,8 @@ public class AddSprint implements Command {
 		reader.removeCompleter(oldCompleter);
 		reader.addCompleter(dateCompleter);
 
-		reader.setPrompt(ColorCodes.BLUE + "\ndue date:\n" + ColorCodes.YELLOW
-				+ "(hit Tab to see examples)\n(optional: leave it blank and hit enter)\n" + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "\ndue date:\n" + ColorCodes.YELLOW + "(hit Tab to see examples)\n(optional: leave it blank and hit enter)\n"
+				+ ColorCodes.RESET);
 
 		while ((line = reader.readLine()) != null) {
 			line = line.trim();
@@ -121,8 +122,7 @@ public class AddSprint implements Command {
 	private boolean setDuration() throws IOException {
 		String line;
 		int duration;
-		reader.setPrompt(ColorCodes.BLUE + "duration: " + ColorCodes.YELLOW
-				+ "(optional: leave it blank and hit enter)\n" + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "duration: " + ColorCodes.YELLOW + "(optional: leave it blank and hit enter)\n" + ColorCodes.RESET);
 
 		while ((line = reader.readLine()) != null) {
 			line = line.trim();
@@ -143,8 +143,7 @@ public class AddSprint implements Command {
 				sprint.dueDate = cal.getTime();
 				break;
 			} catch (IllegalArgumentException e) {
-				System.out.println(
-						ColorCodes.RED + "invalid value: must be a positive integer value!" + ColorCodes.RESET);
+				System.out.println(ColorCodes.RED + "invalid value: must be a positive integer value!" + ColorCodes.RESET);
 			}
 		}
 
@@ -161,8 +160,8 @@ public class AddSprint implements Command {
 		reader.removeCompleter(oldCompleter);
 		reader.addCompleter(dateCompleter);
 
-		reader.setPrompt(ColorCodes.BLUE + "\nstart date:\n" + ColorCodes.YELLOW
-				+ "(hit Tab to see examples)\n(optional: leave it blank and hit enter)\n" + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "\nstart date:\n" + ColorCodes.YELLOW + "(hit Tab to see examples)\n(optional: leave it blank and hit enter)\n"
+				+ ColorCodes.RESET);
 
 		while ((line = reader.readLine()) != null) {
 			line = line.trim();
@@ -223,8 +222,7 @@ public class AddSprint implements Command {
 
 	private void setDescription(StringBuilder description) throws IOException {
 		String line;
-		reader.setPrompt(
-				ColorCodes.BLUE + "\ndescription:\n" + ColorCodes.YELLOW + "(\\q to end writing)\n" + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "\ndescription:\n" + ColorCodes.YELLOW + "(\\q to end writing)\n" + ColorCodes.RESET);
 
 		while ((line = reader.readLine()) != null) {
 			if (line.equals("\\q")) {

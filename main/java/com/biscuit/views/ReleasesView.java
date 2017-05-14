@@ -52,7 +52,7 @@ public class ReleasesView extends View {
 					return false;
 				}
 
-				r.project = project;
+//				r.project = project;
 
 				ReleaseView rv = new ReleaseView(this, r);
 				rv.view();

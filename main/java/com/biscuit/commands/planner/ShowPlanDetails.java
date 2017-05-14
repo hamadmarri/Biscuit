@@ -82,7 +82,7 @@ public class ShowPlanDetails implements Command {
 			at.addRule();
 
 			at.addRow(null, null, r.name, r.description, r.state, DateService.getDateAsString(r.startDate), DateService.getDateAsString(r.dueDate),
-					r.assignedEffort).setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c' });
+					r.assignedEffort).setAlignment(new char[] { 'l', 'l', 'l', 'l', 'c', 'c', 'c', 'c' });
 
 			at.addRule();
 			addSprints(at, r);
@@ -114,7 +114,7 @@ public class ShowPlanDetails implements Command {
 			at.addRule();
 
 			at.addRow(null, s.name, s.description, s.state, DateService.getDateAsString(s.startDate), DateService.getDateAsString(s.dueDate), s.assignedEffort,
-					s.velocity).setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c' });
+					s.velocity).setAlignment(new char[] { 'l', 'l', 'l', 'c', 'c', 'c', 'c', 'c' });
 
 			at.addRule();
 
