@@ -1,6 +1,7 @@
 package com.biscuit.commands.planner;
 
 import java.io.IOException;
+import java.util.Date;
 
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
@@ -57,6 +58,9 @@ public class UnplanUserStory implements Command {
 
 		// change state to unplanned
 		us.state = State.UNPLANNED;
+
+		// make planned date = unset
+		us.plannedDate = new Date(0);
 
 		// update sprint assigned effort
 		s.assignedEffort -= us.points;

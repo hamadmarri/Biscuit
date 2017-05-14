@@ -1,7 +1,10 @@
 package com.biscuit.commands.planner;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
@@ -51,9 +54,12 @@ public class ShowPlan implements Command {
 
 
 	private void printPlanned() {
+		Comparator<Release> byStartDate = (r1, r2) -> r1.startDate.compareTo(r2.startDate);
+		List<Release> sortedByStartDate = project.releases.stream().sorted(byStartDate).collect(Collectors.toList());
+
 		System.out.println("########## PLAN ##########");
 		System.out.println(project.name);
-		for (Iterator<Release> rItr = project.releases.iterator(); rItr.hasNext();) {
+		for (Iterator<Release> rItr = sortedByStartDate.iterator(); rItr.hasNext();) {
 			Release r = rItr.next();
 			boolean isLastRelease = (!rItr.hasNext() && r.sprints.isEmpty());
 			printReleaseTree(r, isLastRelease, " ");
@@ -63,6 +69,9 @@ public class ShowPlan implements Command {
 
 	private void printReleaseTree(Release r, boolean isLastRelease, String indent) {
 
+		Comparator<Sprint> byStartDate = (s1, s2) -> s1.startDate.compareTo(s2.startDate);
+		List<Sprint> sortedByStartDate = r.sprints.stream().sorted(byStartDate).collect(Collectors.toList());
+
 		// print release name
 		if (isLastRelease) {
 			System.out.println(indent + "└ " + ColorCodes.PURPLE + r.name + ColorCodes.RESET);
@@ -70,7 +79,7 @@ public class ShowPlan implements Command {
 			System.out.println(indent + "├ " + ColorCodes.PURPLE + r.name + ColorCodes.RESET);
 		}
 
-		for (Iterator<Sprint> sItr = r.sprints.iterator(); sItr.hasNext();) {
+		for (Iterator<Sprint> sItr = sortedByStartDate.iterator(); sItr.hasNext();) {
 			Sprint s = sItr.next();
 			boolean isLastSprint = (!sItr.hasNext() && s.userStories.isEmpty());
 			printSprintTree(s, isLastSprint, indent + "| ");
@@ -80,6 +89,9 @@ public class ShowPlan implements Command {
 
 	private void printSprintTree(Sprint s, boolean isLastSprint, String indent) {
 
+		Comparator<UserStory> byPlannedDate = (us1, us2) -> us1.plannedDate.compareTo(us2.plannedDate);
+		List<UserStory> sortedByPlannedDate = s.userStories.stream().sorted(byPlannedDate).collect(Collectors.toList());
+
 		// print sprint name
 		if (isLastSprint) {
 			System.out.println(indent + "└ " + ColorCodes.GREEN + s.name + ColorCodes.RESET);
@@ -87,7 +99,7 @@ public class ShowPlan implements Command {
 			System.out.println(indent + "├ " + ColorCodes.GREEN + s.name + ColorCodes.RESET);
 		}
 
-		for (Iterator<UserStory> usItr = s.userStories.iterator(); usItr.hasNext();) {
+		for (Iterator<UserStory> usItr = sortedByPlannedDate.iterator(); usItr.hasNext();) {
 			UserStory us = usItr.next();
 			boolean isLastUserStory = !usItr.hasNext();
 			printUserStoryTree(us, isLastUserStory, indent + "| ");

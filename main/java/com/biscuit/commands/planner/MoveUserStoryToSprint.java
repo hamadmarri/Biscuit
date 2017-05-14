@@ -1,6 +1,7 @@
 package com.biscuit.commands.planner;
 
 import java.io.IOException;
+import java.util.Date;
 
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
@@ -56,6 +57,9 @@ public class MoveUserStoryToSprint implements Command {
 
 		// change state to planned
 		us.state = State.PLANNED;
+
+		// make planned date = today
+		us.plannedDate = new Date();
 
 		// update sprint assigned effort
 		s.assignedEffort += us.points;

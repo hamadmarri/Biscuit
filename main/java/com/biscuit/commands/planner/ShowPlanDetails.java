@@ -1,6 +1,9 @@
 package com.biscuit.commands.planner;
 
 import java.io.IOException;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
@@ -65,6 +68,9 @@ public class ShowPlanDetails implements Command {
 
 	private void addReleases(V2_AsciiTable at) {
 
+		Comparator<Release> byStartDate = (r1, r2) -> r1.startDate.compareTo(r2.startDate);
+		List<Release> sortedByStartDate;
+
 		if (project.releases.size() == 0) {
 			String message;
 			message = "There are no releases!";
@@ -73,7 +79,9 @@ public class ShowPlanDetails implements Command {
 			return;
 		}
 
-		for (Release r : project.releases) {
+		sortedByStartDate = project.releases.stream().sorted(byStartDate).collect(Collectors.toList());
+
+		for (Release r : sortedByStartDate) {
 			at.addRow(null, null, null, null, null, null, null, "RELEASE: " + r.name).setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 			at.addRule();
 
@@ -96,6 +104,9 @@ public class ShowPlanDetails implements Command {
 
 	private void addSprints(V2_AsciiTable at, Release r) {
 
+		Comparator<Sprint> byStartDate = (s1, s2) -> s1.startDate.compareTo(s2.startDate);
+		List<Sprint> sortedByStartDate;
+
 		if (r.sprints.size() == 0) {
 			String message;
 			message = "There are no sprints in release: " + r.name + "!";
@@ -104,17 +115,19 @@ public class ShowPlanDetails implements Command {
 			return;
 		}
 
-		for (Sprint s : r.sprints) {
+		sortedByStartDate = r.sprints.stream().sorted(byStartDate).collect(Collectors.toList());
+
+		for (Sprint s : sortedByStartDate) {
 			at.addRow(null, null, null, null, null, null, null, r.name + " -> Sprint: " + s.name)
 					.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 			at.addRule();
 
-			at.addRow(null, "Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort", "Velocity")
+			at.addRow(null, "Name", "Description", "State", "Velocity", "Start Date", "Due Date", "Assigned Effort")
 					.setAlignment(new char[] { 'c', 'c', 'l', 'l', 'c', 'c', 'c', 'c' });
 			at.addRule();
 
-			at.addRow(null, s.name, s.description, s.state, DateService.getDateAsString(s.startDate), DateService.getDateAsString(s.dueDate), s.assignedEffort,
-					s.velocity).setAlignment(new char[] { 'l', 'l', 'l', 'c', 'c', 'c', 'c', 'c' });
+			at.addRow(null, s.name, s.description, s.state, s.velocity, DateService.getDateAsString(s.startDate), DateService.getDateAsString(s.dueDate),
+					s.assignedEffort).setAlignment(new char[] { 'l', 'l', 'l', 'c', 'c', 'c', 'c', 'c' });
 
 			at.addRule();
 
@@ -124,6 +137,10 @@ public class ShowPlanDetails implements Command {
 
 
 	private void addUserStories(V2_AsciiTable at, Sprint s) {
+
+		Comparator<UserStory> byPlannedDate = (us1, us2) -> us1.plannedDate.compareTo(us2.plannedDate);
+		List<UserStory> sortedByPlannedDate;
+
 		at.addRow(null, null, null, null, null, null, null, s.name + " -> User Stories").setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 		at.addRule();
 
@@ -139,7 +156,8 @@ public class ShowPlanDetails implements Command {
 			return;
 		}
 
-		for (UserStory us : s.userStories) {
+		sortedByPlannedDate = s.userStories.stream().sorted(byPlannedDate).collect(Collectors.toList());
+		for (UserStory us : sortedByPlannedDate) {
 
 			at.addRow(us.title, us.description, us.state, us.businessValue, DateService.getDateAsString(us.initiatedDate),
 					DateService.getDateAsString(us.plannedDate), DateService.getDateAsString(us.dueDate), us.points)
