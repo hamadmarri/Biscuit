@@ -44,32 +44,11 @@ public class PlannerView extends View {
 			return execute1Keywords(words);
 		} else if (words.length == 2) {
 			return execute2Keywords(words);
+		} else if (words.length == 3) {
+			return execute3Keywords(words);
 		} else if (words.length == 4) {
 			return execute4Keywords(words);
 		}
-		return false;
-	}
-
-
-	private boolean execute4Keywords(String[] words) throws IOException {
-		if (words[0].equals("move")) {
-			if (UserStories.getAllNames(project.backlog).contains(words[1]) && Sprints.getAllNames(project).contains(words[3])) {
-				if ((new MoveUserStoryToSprint(reader, project, words[1], words[3])).execute()) {
-					resetCompleters();
-					return true;
-				} else {
-					return false;
-				}
-			} else if (Sprints.getAllNames(project).contains(words[1]) && Releases.getAllNames(project).contains(words[3])) {
-				if ((new MoveSprintToRelease(reader, project, words[1], words[3])).execute()) {
-					resetCompleters();
-					return true;
-				} else {
-					return false;
-				}
-			}
-		}
-
 		return false;
 	}
 
@@ -141,6 +120,42 @@ public class PlannerView extends View {
 			if (words[1].equals("details")) {
 				(new ShowPlanDetails(project)).execute();
 				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+	private boolean execute3Keywords(String[] words) throws IOException {
+		if (words[0].equals("show")) {
+			if (words[1].equals("plan")) {
+				if (words[2].equals("details")) {
+					(new ShowPlanDetails(project)).execute();
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
+	private boolean execute4Keywords(String[] words) throws IOException {
+		if (words[0].equals("move")) {
+			if (UserStories.getAllNames(project.backlog).contains(words[1]) && Sprints.getAllNames(project).contains(words[3])) {
+				if ((new MoveUserStoryToSprint(reader, project, words[1], words[3])).execute()) {
+					resetCompleters();
+					return true;
+				} else {
+					return false;
+				}
+			} else if (Sprints.getAllNames(project).contains(words[1]) && Releases.getAllNames(project).contains(words[3])) {
+				if ((new MoveSprintToRelease(reader, project, words[1], words[3])).execute()) {
+					resetCompleters();
+					return true;
+				} else {
+					return false;
+				}
 			}
 		}
 
