@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.biscuit.commands.planner.ShowPlan;
 import com.biscuit.commands.planner.ShowPlanDetails;
+import com.biscuit.commands.project.ShowProject;
 import com.biscuit.commands.release.AddRelease;
 import com.biscuit.commands.release.ListReleases;
 import com.biscuit.commands.sprint.AddSprint;
@@ -243,6 +244,8 @@ public class ProjectView extends View {
 				}
 			}
 			return true;
+		} else if (words[0].equals("show")) {
+			return (new ShowProject(project).execute());
 		}
 
 		return false;
