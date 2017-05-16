@@ -31,7 +31,7 @@ public class UserStory {
 	public List<Test> tests = new ArrayList<>();
 
 	static {
-		fields = new String[] { "title", "description", "state", "business_value", "initiated_date", "planned_date", "due_date", "points" };
+		fields = new String[] { "title", "description", "state", "business_value", "initiated_date", "planned_date", "due_date", "tasks", "points" };
 	}
 
 

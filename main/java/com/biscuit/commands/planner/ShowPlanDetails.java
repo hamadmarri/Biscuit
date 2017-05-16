@@ -49,7 +49,7 @@ public class ShowPlanDetails implements Command {
 		V2_AsciiTable at = new V2_AsciiTable();
 		String tableString;
 
-		addTopHeaserRow(at);
+		addTopHeaderRow(at);
 		addReleases(at);
 
 		V2_AsciiTableRenderer rend = new V2_AsciiTableRenderer();
@@ -74,7 +74,7 @@ public class ShowPlanDetails implements Command {
 		if (project.releases.size() == 0) {
 			String message;
 			message = "There are no releases!";
-			at.addRow(null, null, null, null, null, null, null, message);
+			at.addRow(null, null, null, null, null, null, null, null, message);
 			at.addRule();
 			return;
 		}
@@ -82,15 +82,16 @@ public class ShowPlanDetails implements Command {
 		sortedByStartDate = project.releases.stream().sorted(byStartDate).collect(Collectors.toList());
 
 		for (Release r : sortedByStartDate) {
-			at.addRow(null, null, null, null, null, null, null, "RELEASE: " + r.name).setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
+			at.addRow(null, null, null, null, null, null, null, null, "RELEASE: " + r.name)
+					.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 			at.addRule();
 
-			at.addRow(null, null, "Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort")
-					.setAlignment(new char[] { 'c', 'c', 'l', 'l', 'c', 'c', 'c', 'c' });
+			at.addRow(null, null, null, "Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort")
+					.setAlignment(new char[] { 'c', 'c', 'l', 'l', 'c', 'c', 'c', 'c', 'c' });
 			at.addRule();
 
-			at.addRow(null, null, r.name, r.description, r.state, DateService.getDateAsString(r.startDate), DateService.getDateAsString(r.dueDate),
-					r.assignedEffort).setAlignment(new char[] { 'l', 'l', 'l', 'l', 'c', 'c', 'c', 'c' });
+			at.addRow(null, null, null, r.name, r.description, r.state, DateService.getDateAsString(r.startDate), DateService.getDateAsString(r.dueDate),
+					r.assignedEffort).setAlignment(new char[] { 'l', 'l', 'l', 'l', 'c', 'c', 'c', 'c', 'c' });
 
 			at.addRule();
 			addSprints(at, r);
@@ -110,7 +111,7 @@ public class ShowPlanDetails implements Command {
 		if (r.sprints.size() == 0) {
 			String message;
 			message = "There are no sprints in release: " + r.name + "!";
-			at.addRow(null, null, null, null, null, null, null, message);
+			at.addRow(null, null, null, null, null, null, null, null, message);
 			at.addRule();
 			return;
 		}
@@ -118,16 +119,16 @@ public class ShowPlanDetails implements Command {
 		sortedByStartDate = r.sprints.stream().sorted(byStartDate).collect(Collectors.toList());
 
 		for (Sprint s : sortedByStartDate) {
-			at.addRow(null, null, null, null, null, null, null, r.name + " -> Sprint: " + s.name)
-					.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
+			at.addRow(null, null, null, null, null, null, null, null, r.name + " -> Sprint: " + s.name)
+					.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 			at.addRule();
 
-			at.addRow(null, "Name", "Description", "State", "Velocity", "Start Date", "Due Date", "Assigned Effort")
-					.setAlignment(new char[] { 'c', 'c', 'l', 'l', 'c', 'c', 'c', 'c' });
+			at.addRow(null, null, "Name", "Description", "State", "Velocity", "Start Date", "Due Date", "Assigned Effort")
+					.setAlignment(new char[] { 'c', 'c', 'l', 'l', 'c', 'c', 'c', 'c', 'c' });
 			at.addRule();
 
-			at.addRow(null, s.name, s.description, s.state, s.velocity, DateService.getDateAsString(s.startDate), DateService.getDateAsString(s.dueDate),
-					s.assignedEffort).setAlignment(new char[] { 'l', 'l', 'l', 'c', 'c', 'c', 'c', 'c' });
+			at.addRow(null, null, s.name, s.description, s.state, s.velocity, DateService.getDateAsString(s.startDate), DateService.getDateAsString(s.dueDate),
+					s.assignedEffort).setAlignment(new char[] { 'l', 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c' });
 
 			at.addRule();
 
@@ -141,17 +142,18 @@ public class ShowPlanDetails implements Command {
 		Comparator<UserStory> byPlannedDate = (us1, us2) -> us1.plannedDate.compareTo(us2.plannedDate);
 		List<UserStory> sortedByPlannedDate;
 
-		at.addRow(null, null, null, null, null, null, null, s.name + " -> User Stories").setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
+		at.addRow(null, null, null, null, null, null, null, null, s.name + " -> User Stories")
+				.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 		at.addRule();
 
-		at.addRow("Title", "Description", "State", "Business Value", "Initiated Date", "Planned Date", "Due Date", "points")
-				.setAlignment(new char[] { 'c', 'c', 'l', 'l', 'c', 'c', 'c', 'c' });
+		at.addRow("Title", "Description", "State", "Business Value", "Initiated Date", "Planned Date", "Due Date", "Tasks #", "points")
+				.setAlignment(new char[] { 'c', 'c', 'l', 'l', 'c', 'c', 'c', 'c', 'c' });
 		at.addRule();
 
 		if (s.userStories.size() == 0) {
 			String message;
 			message = "There are no user stories in sprint: " + s.name + "!";
-			at.addRow(null, null, null, null, null, null, null, message);
+			at.addRow(null, null, null, null, null, null, null, null, message);
 			at.addRule();
 			return;
 		}
@@ -160,18 +162,18 @@ public class ShowPlanDetails implements Command {
 		for (UserStory us : sortedByPlannedDate) {
 
 			at.addRow(us.title, us.description, us.state, us.businessValue, DateService.getDateAsString(us.initiatedDate),
-					DateService.getDateAsString(us.plannedDate), DateService.getDateAsString(us.dueDate), us.points)
-					.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c' });
+					DateService.getDateAsString(us.plannedDate), DateService.getDateAsString(us.dueDate), us.tasks.size(), us.points)
+					.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 
 			at.addRule();
 		}
 	}
 
 
-	private void addTopHeaserRow(V2_AsciiTable at) {
+	private void addTopHeaderRow(V2_AsciiTable at) {
 		at.addRule();
-		at.addRow(null, null, null, null, null, null, null, "PLAN -> PROJECT: " + project.name)
-				.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
+		at.addRow(null, null, null, null, null, null, null, null, "PLAN -> PROJECT: " + project.name)
+				.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 		at.addRule();
 	}
 
@@ -179,7 +181,7 @@ public class ShowPlanDetails implements Command {
 	private String colorize(String tableString) {
 		String replace;
 		String[] fields = new String[] { "Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort", "Velocity", "Title", "Business Value",
-				"Initiated Date", "Planned Date", "points" };
+				"Initiated Date", "Planned Date", "points", "Tasks #" };
 
 		tableString = tableString.replaceFirst("PLAN -> PROJECT: " + project.name, ColorCodes.BLUE + "PLAN -> PROJECT: " + project.name + ColorCodes.RESET);
 		tableString = tableString.replaceFirst(project.name, ColorCodes.BLUE + project.name + ColorCodes.RESET);
