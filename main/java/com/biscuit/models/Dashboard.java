@@ -1,5 +1,6 @@
 package com.biscuit.models;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,13 @@ public class Dashboard {
 
 	public void removeProject(Project p) {
 		projectsNames.remove(p.name);
+	}
+
+
+	public void renameProject(String oldName, String newName) throws IOException {
+		ModelHelper.rename(oldName, newName);
+		projectsNames.remove(oldName);
+		projectsNames.add(newName);
 	}
 
 

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.biscuit.commands.project.AddProject;
+import com.biscuit.commands.project.EditProject;
 import com.biscuit.commands.project.RemoveProject;
 import com.biscuit.factories.DashboardCompleterFactory;
 import com.biscuit.models.Project;
@@ -59,9 +60,13 @@ public class DashboardView extends View {
 			}
 		} else if (words[1].equals("project")) {
 			if (words[0].equals("edit")) {
-				(new AddProject(reader)).execute();
-				resetCompleters();
-				return true;
+				Project p = Projects.getProject(words[2]);
+				if (p != null) {
+					(new EditProject(reader, p)).execute();
+					resetCompleters();
+					return true;
+				}
+				return false;
 			} else if (words[0].equals("remove")) {
 				Project p = Projects.getProject(words[2]);
 				if (p != null) {

@@ -80,4 +80,16 @@ public class ModelHelper {
 			e.printStackTrace();
 		}
 	}
+
+
+	public static void rename(String oldName, String newName) throws IOException {
+		File file = new File(Config.projectsDir + "/" + oldName + ".json");
+		File file2 = new File(Config.projectsDir + "/" + newName + ".json");
+
+		if (file2.exists())
+			throw new java.io.IOException("file exists");
+
+		// Rename file (or directory)
+		file.renameTo(file2);
+	}
 }
