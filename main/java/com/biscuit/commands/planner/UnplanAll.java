@@ -54,6 +54,9 @@ public class UnplanAll implements Command {
 				// change state to unplanned
 				us.state = State.UNPLANNED;
 
+				// update sprint assigned effort
+				s.assignedEffort -= us.points;
+
 				// save project
 				project.save();
 
@@ -79,6 +82,9 @@ public class UnplanAll implements Command {
 
 				// change state to unplanned
 				s.state = State.UNPLANNED;
+
+				// update release assigned effort
+				r.assignedEffort -= s.assignedEffort;
 
 				// save project
 				project.save();
