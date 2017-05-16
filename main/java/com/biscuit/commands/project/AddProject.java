@@ -1,8 +1,9 @@
-package com.biscuit.commands;
+package com.biscuit.commands.project;
 
 import java.io.IOException;
 
 import com.biscuit.ColorCodes;
+import com.biscuit.commands.Command;
 import com.biscuit.models.Project;
 import com.biscuit.models.Dashboard;
 
@@ -10,7 +11,7 @@ import jline.console.ConsoleReader;
 
 public class AddProject implements Command {
 
-	Dashboard root = Dashboard.getInstance();
+	Dashboard dashboard = Dashboard.getInstance();
 	Project project = new Project();
 	ConsoleReader reader = null;
 
@@ -42,9 +43,9 @@ public class AddProject implements Command {
 
 		reader.setPrompt(prompt);
 
-		root.addProject(project);
+		dashboard.addProject(project);
 
-		root.save();
+		dashboard.save();
 		project.save();
 
 		reader.println();

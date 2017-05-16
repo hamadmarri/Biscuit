@@ -31,6 +31,11 @@ public class Dashboard {
 	}
 
 
+	public void removeProject(Project p) {
+		projectsNames.remove(p.name);
+	}
+
+
 	public void save() {
 		ModelHelper.save(this, name);
 	}

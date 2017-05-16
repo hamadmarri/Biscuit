@@ -32,7 +32,7 @@ public class DashboardCompleterFactory {
 		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("alerts"),
 				new StringsCompleter("filter", "sort"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("add"), new StringsCompleter("project"),
+		completers.add(new ArgumentCompleter(new StringsCompleter("add", "edit", "remove"), new StringsCompleter("project"),
 				new NullCompleter()));
 
 		return completers;

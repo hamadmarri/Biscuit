@@ -21,6 +21,11 @@ public class Project {
 	}
 
 
+	public void delete() {
+		ModelHelper.delete(name);
+	}
+
+
 	static public Project load(String name) {
 		return ModelHelper.loadProject(name);
 	}

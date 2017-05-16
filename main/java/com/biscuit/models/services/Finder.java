@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.biscuit.models.Backlog;
+import com.biscuit.models.Dashboard;
 import com.biscuit.models.Project;
 import com.biscuit.models.Release;
 import com.biscuit.models.Sprint;
@@ -12,6 +13,20 @@ import com.biscuit.models.Task;
 import com.biscuit.models.UserStory;
 
 public class Finder {
+
+	public static class Projects {
+
+		public static Project getProject(String projectName) {
+			Project p = null;
+
+			if (Dashboard.getInstance().projectsNames.contains(projectName)) {
+				p = Project.load(projectName);
+				p.updateChildrenReferences();
+			}
+
+			return p;
+		}
+	}
 
 	public static class UserStories {
 

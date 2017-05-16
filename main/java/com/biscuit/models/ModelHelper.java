@@ -4,6 +4,7 @@
 
 package com.biscuit.models;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -14,7 +15,7 @@ import com.google.gson.GsonBuilder;
 
 public class ModelHelper {
 
-//	static Gson gson = new Gson();
+	// static Gson gson = new Gson();
 	static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 
@@ -64,4 +65,19 @@ public class ModelHelper {
 		return null;
 	}
 
+
+	public static void delete(String name) {
+		try {
+			File file = new File(Config.projectsDir + "/" + name + ".json");
+
+			if (file.delete()) {
+				System.out.println(file.getName() + " is deleted!");
+			} else {
+				System.out.println("Delete operation is failed.");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
