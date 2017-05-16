@@ -9,6 +9,7 @@ import com.biscuit.models.Sprint;
 import com.biscuit.models.UserStory;
 import com.biscuit.models.services.Finder.Releases;
 import com.biscuit.models.services.Finder.Sprints;
+import com.biscuit.models.services.Finder.UserStories;
 
 import jline.console.completer.ArgumentCompleter;
 import jline.console.completer.Completer;
@@ -102,8 +103,13 @@ public class ProjectCompleterFactory {
 				new NullCompleter()));
 
 		// TODO: check why is it repeated?
-		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter("sprint"), new StringsCompleter(Sprints.getAllNames(project)),
-				new NullCompleter()));
+		// completers.add(new ArgumentCompleter(new StringsCompleter("go_to"),
+		// new StringsCompleter("sprint"), new
+		// StringsCompleter(Sprints.getAllNames(project)),
+		// new NullCompleter()));
+
+		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter("user_story"),
+				new StringsCompleter(UserStories.getAllNames(project)), new NullCompleter()));
 
 		return completers;
 

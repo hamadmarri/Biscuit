@@ -80,6 +80,11 @@ public class Finder {
 		}
 
 
+		public static UserStory find(Project p, String title) {
+			return getAll(p).stream().filter(us -> us.title.equals(title)).findAny().orElse(null);
+		}
+
+
 		public static UserStory find(Backlog backlog, String title) {
 			return backlog.userStories.stream().filter(us -> us.title.equals(title)).findAny().orElse(null);
 		}

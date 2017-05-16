@@ -89,8 +89,6 @@ public class SprintView extends View {
 					return false;
 				}
 
-				us.project = sprint.project;
-
 				UserStroryView usv = new UserStroryView(this, us);
 				usv.view();
 				return true;

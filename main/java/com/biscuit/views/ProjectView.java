@@ -19,6 +19,7 @@ import com.biscuit.factories.ProjectCompleterFactory;
 import com.biscuit.models.Project;
 import com.biscuit.models.Release;
 import com.biscuit.models.Sprint;
+import com.biscuit.models.UserStory;
 import com.biscuit.models.services.Finder.Releases;
 import com.biscuit.models.services.Finder.Sprints;
 import com.biscuit.models.services.Finder.UserStories;
@@ -127,8 +128,20 @@ public class ProjectView extends View {
 					sv.view();
 					return true;
 				}
+			} else if (words[1].equals("user_story")) {
+				if (UserStories.getAllNames(project).contains(words[2])) {
+					UserStory us = UserStories.find(project, words[2]);
+					if (us == null) {
+						return false;
+					}
+
+					UserStroryView usv = new UserStroryView(this, us);
+					usv.view();
+					return true;
+				}
 			}
 		}
+
 		return false;
 	}
 
