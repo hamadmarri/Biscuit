@@ -82,7 +82,7 @@ public class ShowPlanDetails implements Command {
 		sortedByStartDate = project.releases.stream().sorted(byStartDate).collect(Collectors.toList());
 
 		for (Release r : sortedByStartDate) {
-			at.addRow(null, null, null, null, null, null, null, null, "RELEASE: " + r.name)
+			at.addRow(null, null, null, null, null, null, null, null, "_RELEASE: " + r.name + "_")
 					.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 			at.addRule();
 
@@ -191,8 +191,9 @@ public class ShowPlanDetails implements Command {
 		}
 
 		for (Release r : project.releases) {
-			replace = "RELEASE: " + r.name;
-			tableString = tableString.replaceFirst(replace, ColorCodes.PURPLE + replace + ColorCodes.RESET);
+			replace = "_RELEASE: " + r.name + "_";
+			
+			tableString = tableString.replaceFirst(replace, ColorCodes.PURPLE + "RELEASE: " + r.name + ColorCodes.RESET);
 
 			for (Sprint s : r.sprints) {
 				replace = r.name + " -> Sprint: " + s.name;
