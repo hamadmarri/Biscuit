@@ -38,8 +38,7 @@ public class ListTasks implements Command {
 	}
 
 
-	public ListTasks(UserStory userStory, String title, boolean isFilter, String filterBy, boolean isSort,
-			String sortBy) {
+	public ListTasks(UserStory userStory, String title, boolean isFilter, String filterBy, boolean isSort, String sortBy) {
 		super();
 		this.userStory = userStory;
 		this.title = title;
@@ -69,8 +68,7 @@ public class ListTasks implements Command {
 
 		at.addRule();
 		if (!this.title.isEmpty()) {
-			at.addRow(null, null, null, null, null, null, null, this.title)
-					.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
+			at.addRow(null, null, null, null, null, null, this.title).setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 			at.addRule();
 		}
 		at.addRow("Title", "Description", "State", "Initiated Date", "Planned Date", "Due Date", "Estimated Time")
@@ -89,9 +87,8 @@ public class ListTasks implements Command {
 			for (Task t : tasks) {
 				at.addRule();
 
-				at.addRow(t.title, t.description, t.state, DateService.getDateAsString(t.initiatedDate),
-						DateService.getDateAsString(t.plannedDate), DateService.getDateAsString(t.dueDate),
-						t.estimatedTime).setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c' });
+				at.addRow(t.title, t.description, t.state, DateService.getDateAsString(t.initiatedDate), DateService.getDateAsString(t.plannedDate),
+						DateService.getDateAsString(t.dueDate), t.estimatedTime).setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c' });
 			} // for
 		}
 
@@ -161,10 +158,8 @@ public class ListTasks implements Command {
 
 	private void doFilter(List<Task> tasks) {
 		List<Task> filtered = tasks.stream()
-				.filter(us -> us.title.toLowerCase().contains(filterBy)
-						|| us.description.toLowerCase().contains(filterBy)
-						|| us.state.toString().toLowerCase().contains(filterBy)
-						|| String.valueOf(us.estimatedTime).contains(filterBy)
+				.filter(us -> us.title.toLowerCase().contains(filterBy) || us.description.toLowerCase().contains(filterBy)
+						|| us.state.toString().toLowerCase().contains(filterBy) || String.valueOf(us.estimatedTime).contains(filterBy)
 						|| DateService.getDateAsString(us.initiatedDate).toLowerCase().contains(filterBy)
 						|| DateService.getDateAsString(us.plannedDate).toLowerCase().contains(filterBy)
 						|| DateService.getDateAsString(us.dueDate).toLowerCase().contains(filterBy))

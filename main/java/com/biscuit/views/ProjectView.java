@@ -13,6 +13,7 @@ import com.biscuit.commands.release.AddRelease;
 import com.biscuit.commands.release.ListReleases;
 import com.biscuit.commands.sprint.AddSprint;
 import com.biscuit.commands.sprint.ListSprints;
+import com.biscuit.commands.task.ListTasks;
 import com.biscuit.commands.userStory.AddUserStoryToBacklog;
 import com.biscuit.commands.userStory.ListUserStories;
 import com.biscuit.factories.ProjectCompleterFactory;
@@ -233,6 +234,14 @@ public class ProjectView extends View {
 			return true;
 		} else if (words[0].equals("plan")) {
 			(new ShowPlan(project)).execute();
+			return true;
+		} else if (words[0].equals("tasks")) {
+			List<UserStory> userStories = UserStories.getAll(project);
+			for (UserStory us : userStories) {
+				if (!us.tasks.isEmpty()) {
+					(new ListTasks(us, "User Story: " + us.title)).execute();
+				}
+			}
 			return true;
 		}
 
