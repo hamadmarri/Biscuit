@@ -20,9 +20,10 @@ public class ProjectCompleterFactory {
 	public static List<Completer> getProjectCompleters(Project project) {
 		List<Completer> completers = new ArrayList<Completer>();
 
-		completers.add(new ArgumentCompleter(
-				new StringsCompleter("summary", "info", "releases", "sprints", "alerts", "check_alert", "tasks", "tests", "times", "bugs", "backlog", "back"),
-				new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("summary", "info", "releases", "sprints", "user_stories", "alerts", "check_alert", "tasks",
+				"tests", "times", "bugs", "backlog", "plan", "back"), new NullCompleter()));
+
+		completers.add(new ArgumentCompleter(new StringsCompleter("plan"), new StringsCompleter("details"), new NullCompleter()));
 
 		completers
 				.add(new ArgumentCompleter(new StringsCompleter("show"), new StringsCompleter("backlog"), new StringsCompleter("filter"), new NullCompleter()));
@@ -68,6 +69,12 @@ public class ProjectCompleterFactory {
 		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("sprints"), new StringsCompleter("sort"),
 				new StringsCompleter(Sprint.fields), new NullCompleter()));
 
+		completers.add(
+				new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("user_stories"), new StringsCompleter("filter"), new NullCompleter()));
+
+		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("user_stories"), new StringsCompleter("sort"),
+				new StringsCompleter(UserStory.fields), new NullCompleter()));
+
 		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("alerts"), new StringsCompleter("filter", "sort"),
 				new NullCompleter()));
 
@@ -91,12 +98,12 @@ public class ProjectCompleterFactory {
 		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter("release"),
 				new StringsCompleter(Releases.getAllNames(project)), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter("sprint"),
-				new StringsCompleter(Sprints.getAllNames(project)), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter("sprint"), new StringsCompleter(Sprints.getAllNames(project)),
+				new NullCompleter()));
 
 		// TODO: check why is it repeated?
-		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter("sprint"),
-				new StringsCompleter(Sprints.getAllNames(project)), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter("sprint"), new StringsCompleter(Sprints.getAllNames(project)),
+				new NullCompleter()));
 
 		return completers;
 

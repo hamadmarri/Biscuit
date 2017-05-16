@@ -7,6 +7,8 @@ package com.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.biscuit.commands.planner.ShowPlan;
+import com.biscuit.commands.planner.ShowPlanDetails;
 import com.biscuit.commands.release.AddRelease;
 import com.biscuit.commands.release.ListReleases;
 import com.biscuit.commands.sprint.AddSprint;
@@ -19,6 +21,7 @@ import com.biscuit.models.Release;
 import com.biscuit.models.Sprint;
 import com.biscuit.models.services.Finder.Releases;
 import com.biscuit.models.services.Finder.Sprints;
+import com.biscuit.models.services.Finder.UserStories;
 
 import jline.console.completer.Completer;
 
@@ -82,6 +85,14 @@ public class ProjectView extends View {
 					(new ListSprints(project, "Sprints", false, "", true, words[3])).execute();
 					return true;
 				}
+			} else if (words[1].equals("user_stories")) {
+				if (words[2].equals("filter")) {
+					(new ListUserStories(UserStories.getAll(project), "User Stories (Filtered)", true, words[3], false, "")).execute();
+					return true;
+				} else if (words[2].equals("sort")) {
+					(new ListUserStories(UserStories.getAll(project), "All User Stories", false, "", true, words[3])).execute();
+					return true;
+				}
 			}
 		}
 		return false;
@@ -97,7 +108,7 @@ public class ProjectView extends View {
 						return false;
 					}
 
-//					r.project = project;
+					// r.project = project;
 
 					ReleaseView rv = new ReleaseView(this, r);
 					rv.view();
@@ -110,7 +121,7 @@ public class ProjectView extends View {
 						return false;
 					}
 
-//					s.project = project;
+					// s.project = project;
 
 					SprintView sv = new SprintView(this, s);
 					sv.view();
@@ -176,6 +187,14 @@ public class ProjectView extends View {
 			} else if (words[1].equals("sprints")) {
 				(new ListSprints(project, "Sprints")).execute();
 				return true;
+			} else if (words[1].equals("user_stories")) {
+				(new ListUserStories(UserStories.getAll(project), "All User Stories")).execute();
+				return true;
+			}
+		} else if (words[0].equals("plan")) {
+			if (words[1].equals("details")) {
+				(new ShowPlanDetails(project)).execute();
+				return true;
 			}
 		}
 
@@ -195,6 +214,12 @@ public class ProjectView extends View {
 			return true;
 		} else if (words[0].equals("sprints")) {
 			(new ListSprints(project, "Sprints")).execute();
+			return true;
+		} else if (words[0].equals("user_stories")) {
+			(new ListUserStories(UserStories.getAll(project), "All User Stories")).execute();
+			return true;
+		} else if (words[0].equals("plan")) {
+			(new ShowPlan(project)).execute();
 			return true;
 		}
 
