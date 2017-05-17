@@ -17,7 +17,7 @@ public class DashboardCompleterFactory {
 		List<Completer> completers = new ArrayList<Completer>();
 
 		completers.add(new ArgumentCompleter(
-				new StringsCompleter("summary", "projects", "alerts", "check_alert", "search", "help"),
+				new StringsCompleter("summary", "projects", "alerts", "check_alert", "search"),
 				new NullCompleter()));
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter(getGo_Tos()),

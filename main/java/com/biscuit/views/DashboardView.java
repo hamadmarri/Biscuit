@@ -7,6 +7,7 @@ package com.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.biscuit.commands.help.DashboardHelp;
 import com.biscuit.commands.project.AddProject;
 import com.biscuit.commands.project.EditProject;
 import com.biscuit.commands.project.RemoveProject;
@@ -110,13 +111,14 @@ public class DashboardView extends View {
 	}
 
 
-	private boolean execute1Keyword(String[] words) {
+	private boolean execute1Keyword(String[] words) throws IOException {
 		if (words[0].equals("summary")) {
 		} else if (words[0].equals("projects")) {
 		} else if (words[0].equals("alerts")) {
 		} else if (words[0].equals("check_alert")) {
 		} else if (words[0].equals("search")) {
 		} else if (words[0].equals("help")) {
+			return (new DashboardHelp().execute());
 		}
 
 		return false;

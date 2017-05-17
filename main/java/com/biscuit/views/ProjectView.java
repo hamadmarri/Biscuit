@@ -7,6 +7,7 @@ package com.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.biscuit.commands.help.ProjectHelp;
 import com.biscuit.commands.planner.ShowPlan;
 import com.biscuit.commands.planner.ShowPlanDetails;
 import com.biscuit.commands.project.ShowProject;
@@ -246,6 +247,8 @@ public class ProjectView extends View {
 			return true;
 		} else if (words[0].equals("show")) {
 			return (new ShowProject(project).execute());
+		} else if (words[0].equals("help")) {
+			return (new ProjectHelp().execute());
 		}
 
 		return false;
