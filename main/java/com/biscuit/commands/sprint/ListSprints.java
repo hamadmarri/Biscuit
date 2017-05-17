@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
 import com.biscuit.models.Project;
+import com.biscuit.models.Release;
 import com.biscuit.models.Sprint;
 import com.biscuit.models.services.DateService;
 
@@ -22,6 +23,7 @@ import de.vandermeer.asciitable.v2.themes.V2_E_TableThemes;
 public class ListSprints implements Command {
 
 	Project project = null;
+	Release release = null;
 	String title = "";
 	boolean isFilter = false;
 	boolean isSort = false;
@@ -38,10 +40,27 @@ public class ListSprints implements Command {
 	}
 
 
-	public ListSprints(Project porject, String title, boolean isFilter, String filterBy, boolean isSort,
-			String sortBy) {
+	public ListSprints(Project porject, String title, boolean isFilter, String filterBy, boolean isSort, String sortBy) {
 		super();
 		this.project = porject;
+		this.title = title;
+		this.isFilter = isFilter;
+		this.filterBy = filterBy.toLowerCase();
+		this.isSort = isSort;
+		this.sortBy = sortBy.toLowerCase();
+	}
+
+
+	public ListSprints(Release release, String title) {
+		super();
+		this.release = release;
+		this.title = title;
+	}
+
+
+	public ListSprints(Release release, String title, boolean isFilter, String filterBy, boolean isSort, String sortBy) {
+		super();
+		this.release = release;
 		this.title = title;
 		this.isFilter = isFilter;
 		this.filterBy = filterBy.toLowerCase();
@@ -57,7 +76,12 @@ public class ListSprints implements Command {
 		String tableString;
 
 		List<Sprint> sprints = new ArrayList<>();
-		sprints.addAll(project.sprints);
+
+		if (project != null) {
+			sprints.addAll(project.sprints);
+		} else if (release != null) {
+			sprints.addAll(release.sprints);
+		}
 
 		if (isFilter) {
 			doFilter(sprints);
@@ -69,8 +93,7 @@ public class ListSprints implements Command {
 
 		at.addRule();
 		if (!this.title.isEmpty()) {
-			at.addRow(null, null, null, null, null, null, this.title)
-					.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
+			at.addRow(null, null, null, null, null, null, this.title).setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c', 'c' });
 			at.addRule();
 		}
 		at.addRow("Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort", "Velocity")
@@ -89,9 +112,8 @@ public class ListSprints implements Command {
 			for (Sprint s : sprints) {
 				at.addRule();
 
-				at.addRow(s.name, s.description, s.state, DateService.getDateAsString(s.startDate),
-						DateService.getDateAsString(s.dueDate), s.assignedEffort, s.velocity)
-						.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c' });
+				at.addRow(s.name, s.description, s.state, DateService.getDateAsString(s.startDate), DateService.getDateAsString(s.dueDate), s.assignedEffort,
+						s.velocity).setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c', 'c' });
 			} // for
 		}
 
@@ -164,10 +186,8 @@ public class ListSprints implements Command {
 	private void doFilter(List<Sprint> sprints) {
 		List<Sprint> filtered = sprints.stream()
 				.filter(r -> r.name.toLowerCase().contains(filterBy) || r.description.toLowerCase().contains(filterBy)
-						|| r.state.toString().toLowerCase().contains(filterBy)
-						|| DateService.getDateAsString(r.startDate).toLowerCase().contains(filterBy)
-						|| DateService.getDateAsString(r.dueDate).toLowerCase().contains(filterBy)
-						|| String.valueOf(r.assignedEffort).contains(filterBy)
+						|| r.state.toString().toLowerCase().contains(filterBy) || DateService.getDateAsString(r.startDate).toLowerCase().contains(filterBy)
+						|| DateService.getDateAsString(r.dueDate).toLowerCase().contains(filterBy) || String.valueOf(r.assignedEffort).contains(filterBy)
 						|| String.valueOf(r.velocity).contains(filterBy))
 				.collect(Collectors.toList());
 		sprints.clear();

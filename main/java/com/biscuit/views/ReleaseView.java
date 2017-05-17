@@ -6,9 +6,12 @@ import java.util.List;
 import com.biscuit.commands.release.ChangeStatusRelease;
 import com.biscuit.commands.release.EditRelease;
 import com.biscuit.commands.release.ShowRelease;
+import com.biscuit.commands.sprint.ListSprints;
 import com.biscuit.factories.ReleaseCompleterFactory;
 import com.biscuit.models.Release;
+import com.biscuit.models.Sprint;
 import com.biscuit.models.enums.State;
+import com.biscuit.models.services.Finder.Sprints;
 
 import jline.console.completer.Completer;
 
@@ -35,6 +38,24 @@ public class ReleaseView extends View {
 			return execute1Keyword(words);
 		} else if (words.length == 2) {
 			return execute2Keywords(words);
+		} else if (words.length == 4) {
+			return execute4Keywords(words);
+		}
+		return false;
+	}
+
+
+	private boolean execute4Keywords(String[] words) throws IOException {
+		if (words[0].equals("list")) {
+			if (words[1].equals("sprints")) {
+				if (words[2].equals("filter")) {
+					(new ListSprints(release, "Sprints", true, words[3], false, "")).execute();
+					return true;
+				} else if (words[2].equals("sort")) {
+					(new ListSprints(release, "Sprints", false, "", true, words[3])).execute();
+					return true;
+				}
+			}
 		}
 		return false;
 	}
@@ -46,6 +67,23 @@ public class ReleaseView extends View {
 				(new ChangeStatusRelease(release, State.valueOf(words[1].toUpperCase()))).execute();
 				return true;
 			}
+		} else if (words[0].equals("list")) {
+			if (words[1].equals("sprints")) {
+				(new ListSprints(release, "Sprints")).execute();
+				return true;
+			}
+		} else if (words[0].equals("go_to")) {
+			if (Sprints.getAllNames(release).contains(words[1])) {
+				Sprint s = Sprints.find(release, words[1]);
+				if (s == null) {
+					return false;
+				}
+
+				SprintView sv = new SprintView(this, s);
+				sv.view();
+				return true;
+			}
+
 		}
 		return false;
 	}
@@ -60,6 +98,9 @@ public class ReleaseView extends View {
 			this.name = release.name;
 			updatePromptViews();
 
+			return true;
+		} else if (words[0].equals("sprints")) {
+			(new ListSprints(release, "Sprints")).execute();
 			return true;
 		}
 		return false;
