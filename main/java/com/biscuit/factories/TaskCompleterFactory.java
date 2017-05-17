@@ -16,11 +16,14 @@ public class TaskCompleterFactory {
 	public static List<Completer> getTaskCompleters(Task task) {
 		List<Completer> completers = new ArrayList<Completer>();
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("summary", "show", "times", "edit", "back"),
-				new NullCompleter()));
+		// TODO: Task commands
+		// completers.add(new ArgumentCompleter(new StringsCompleter("summary",
+		// "show", "times", "edit", "back"),
+		// new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("change_status_to"),
-				new StringsCompleter(State.values), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("show", "edit", "back"), new NullCompleter()));
+
+		completers.add(new ArgumentCompleter(new StringsCompleter("change_status_to"), new StringsCompleter(State.values), new NullCompleter()));
 
 		return completers;
 	}

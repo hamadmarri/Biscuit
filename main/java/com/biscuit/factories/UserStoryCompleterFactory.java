@@ -17,28 +17,41 @@ public class UserStoryCompleterFactory {
 	public static List<Completer> getUserStoryCompleters(UserStory userStory) {
 		List<Completer> completers = new ArrayList<Completer>();
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("summary", "show", "times", "edit", "tasks", "back"), new NullCompleter()));
+		// TODO: user story commands
+		// "summary","times",
+		// completers.add(new ArgumentCompleter(new StringsCompleter("list"),
+		// new StringsCompleter("open"), new StringsCompleter("tasks"),
+		// new StringsCompleter("filter", "sort"), new NullCompleter()));
+		//
+		// completers.add(new ArgumentCompleter(new StringsCompleter("list"),
+		// new StringsCompleter("planned"), new StringsCompleter("tasks"),
+		// new StringsCompleter("filter", "sort"), new NullCompleter()));
+		//
+		// completers.add(new ArgumentCompleter(new StringsCompleter("list"),
+		// new StringsCompleter("in_progress"), new StringsCompleter("tasks"),
+		// new StringsCompleter("filter", "sort"), new NullCompleter()));
+		//
+		// completers.add(new ArgumentCompleter(new StringsCompleter("list"),
+		// new StringsCompleter("in_testing"), new StringsCompleter("tasks"),
+		// new StringsCompleter("filter", "sort"), new NullCompleter()));
+		//
+		// completers.add(new ArgumentCompleter(new StringsCompleter("list"),
+		// new StringsCompleter("done"), new StringsCompleter("tasks"),
+		// new StringsCompleter("filter", "sort"), new NullCompleter()));
+		//
+		// completers.add(new ArgumentCompleter(new StringsCompleter("list"),
+		// new StringsCompleter("tasks"), new StringsCompleter("filter"), new
+		// NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("open"), new StringsCompleter("tasks"),
-				new StringsCompleter("filter", "sort"), new NullCompleter()));
+		// completers.add(new ArgumentCompleter(new StringsCompleter("add"), new
+		// StringsCompleter("task", "bug", "test"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("planned"), new StringsCompleter("tasks"),
-				new StringsCompleter("filter", "sort"), new NullCompleter()));
+		// completers.add(new ArgumentCompleter(new StringsCompleter("go_to"),
+		// new StringsCompleter("bug#", "test#"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("in_progress"), new StringsCompleter("tasks"),
-				new StringsCompleter("filter", "sort"), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("show", "edit", "tasks", "back"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("in_testing"), new StringsCompleter("tasks"),
-				new StringsCompleter("filter", "sort"), new NullCompleter()));
-
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("done"), new StringsCompleter("tasks"),
-				new StringsCompleter("filter", "sort"), new NullCompleter()));
-
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("tasks"), new StringsCompleter("filter"), new NullCompleter()));
-
-		completers.add(new ArgumentCompleter(new StringsCompleter("add"), new StringsCompleter("task", "bug", "test"), new NullCompleter()));
-
-		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter("bug#", "test#"), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("add"), new StringsCompleter("task"), new NullCompleter()));
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter("task"), new StringsCompleter(Tasks.getAllNames(userStory)),
 				new NullCompleter()));

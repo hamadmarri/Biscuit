@@ -19,23 +19,24 @@ public class SprintCompleterFactory {
 	public static Collection<? extends Completer> getSprintCompleters(Sprint sprint) {
 		List<Completer> completers = new ArrayList<Completer>();
 
-		completers.add(new ArgumentCompleter(
-				new StringsCompleter("summary", "show", "times", "edit", "back", "user_stories"), new NullCompleter()));
+		// TODO: sprint commands
+		// completers.add(new ArgumentCompleter(
+		// new StringsCompleter("summary", "show", "times", "edit", "back",
+		// "user_stories"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("user_stories"),
-				new StringsCompleter("filter"), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("show", "edit", "back", "user_stories"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("user_stories"),
-				new StringsCompleter("sort"), new StringsCompleter(UserStory.fields), new NullCompleter()));
+		completers.add(
+				new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("user_stories"), new StringsCompleter("filter"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("add"), new StringsCompleter("user_story"),
-				new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("user_stories"), new StringsCompleter("sort"),
+				new StringsCompleter(UserStory.fields), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("change_status_to"),
-				new StringsCompleter(State.values), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("add"), new StringsCompleter("user_story"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"),
-				new StringsCompleter(UserStories.getAllNames(sprint)), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("change_status_to"), new StringsCompleter(State.values), new NullCompleter()));
+
+		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter(UserStories.getAllNames(sprint)), new NullCompleter()));
 
 		return completers;
 	}

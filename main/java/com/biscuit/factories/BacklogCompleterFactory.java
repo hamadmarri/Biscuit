@@ -17,24 +17,37 @@ public class BacklogCompleterFactory {
 	public static List<Completer> getBacklogCompleters(Backlog backlog) {
 		List<Completer> completers = new ArrayList<Completer>();
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("summary", "user_stories", "back"), new NullCompleter()));
+		// TODO: backlog commands
+		// completers.add(new ArgumentCompleter(new StringsCompleter("summary",
+		// "user_stories", "back"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("show"), new StringsCompleter("backlog"), new NullCompleter()));
+		// completers.add(new ArgumentCompleter(new StringsCompleter("show"),
+		// new StringsCompleter("backlog"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("open"), new StringsCompleter("user_stories"),
-				new StringsCompleter("filter", "sort"), new NullCompleter()));
+		// completers.add(new ArgumentCompleter(new StringsCompleter("list"),
+		// new StringsCompleter("open"), new StringsCompleter("user_stories"),
+		// new StringsCompleter("filter", "sort"), new NullCompleter()));
+		//
+		// completers.add(new ArgumentCompleter(new StringsCompleter("list"),
+		// new StringsCompleter("planned"), new
+		// StringsCompleter("user_stories"),
+		// new StringsCompleter("filter", "sort"), new NullCompleter()));
+		//
+		// completers.add(new ArgumentCompleter(new StringsCompleter("list"),
+		// new StringsCompleter("in_progress"), new
+		// StringsCompleter("user_stories"),
+		// new StringsCompleter("filter", "sort"), new NullCompleter()));
+		//
+		// completers.add(new ArgumentCompleter(new StringsCompleter("list"),
+		// new StringsCompleter("in_testing"), new
+		// StringsCompleter("user_stories"),
+		// new StringsCompleter("filter", "sort"), new NullCompleter()));
+		//
+		// completers.add(new ArgumentCompleter(new StringsCompleter("list"),
+		// new StringsCompleter("open"), new StringsCompleter("user_stories"),
+		// new StringsCompleter("filter", "sort"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("planned"), new StringsCompleter("user_stories"),
-				new StringsCompleter("filter", "sort"), new NullCompleter()));
-
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("in_progress"), new StringsCompleter("user_stories"),
-				new StringsCompleter("filter", "sort"), new NullCompleter()));
-
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("in_testing"), new StringsCompleter("user_stories"),
-				new StringsCompleter("filter", "sort"), new NullCompleter()));
-
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("open"), new StringsCompleter("user_stories"),
-				new StringsCompleter("filter", "sort"), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("user_stories", "back"), new NullCompleter()));
 
 		completers.add(
 				new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("user_stories"), new StringsCompleter("filter"), new NullCompleter()));

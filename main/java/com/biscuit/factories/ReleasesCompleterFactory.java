@@ -17,20 +17,32 @@ public class ReleasesCompleterFactory {
 	public static List<Completer> getReleasesCompleters(Project project) {
 		List<Completer> completers = new ArrayList<Completer>();
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("summary", "back"), new NullCompleter()));
+		// TODO: releases commands
+		// completers.add(new ArgumentCompleter(new StringsCompleter("summary",
+		// "back"), new NullCompleter()));
 
-		completers.add(
-				new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("past"), new StringsCompleter("filter", "sort"), new NullCompleter()));
+		// completers.add(
+		// new ArgumentCompleter(new StringsCompleter("list"), new
+		// StringsCompleter("past"), new StringsCompleter("filter", "sort"), new
+		// NullCompleter()));
+		//
+		// completers.add(new ArgumentCompleter(new StringsCompleter("list"),
+		// new StringsCompleter("future"), new StringsCompleter("filter",
+		// "sort"),
+		// new NullCompleter()));
+		//
+		// completers.add(new ArgumentCompleter(new StringsCompleter("list"),
+		// new StringsCompleter("current"), new NullCompleter()));
+		//
+		// completers.add(new ArgumentCompleter(new StringsCompleter("list"),
+		// new StringsCompleter("all"), new StringsCompleter("filter"), new
+		// NullCompleter()));
+		//
+		// completers.add(new ArgumentCompleter(new StringsCompleter("list"),
+		// new StringsCompleter("all"), new StringsCompleter("sort"),
+		// new StringsCompleter(Release.fields), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("future"), new StringsCompleter("filter", "sort"),
-				new NullCompleter()));
-
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("current"), new NullCompleter()));
-
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("all"), new StringsCompleter("filter"), new NullCompleter()));
-
-		completers.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("all"), new StringsCompleter("sort"),
-				new StringsCompleter(Release.fields), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("back"), new NullCompleter()));
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("add"), new StringsCompleter("release"), new NullCompleter()));
 

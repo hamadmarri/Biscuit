@@ -19,7 +19,11 @@ public class ReleaseCompleterFactory {
 	public static Collection<? extends Completer> getReleaseCompleters(Release release) {
 		List<Completer> completers = new ArrayList<Completer>();
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("summary", "show", "sprints", "times", "edit", "back"), new NullCompleter()));
+		// TODO: release commands
+		// completers.add(new ArgumentCompleter(new StringsCompleter("summary",
+		// "show", "sprints", "times", "edit", "back"), new NullCompleter()));
+
+		completers.add(new ArgumentCompleter(new StringsCompleter("show", "sprints", "edit", "back"), new NullCompleter()));
 
 		completers
 				.add(new ArgumentCompleter(new StringsCompleter("list"), new StringsCompleter("sprints"), new StringsCompleter("filter"), new NullCompleter()));

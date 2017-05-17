@@ -18,6 +18,11 @@ public class PlannerCompleterFactory {
 	public static List<Completer> getPlannerCompleters(Project project) {
 		List<Completer> completers = new ArrayList<Completer>();
 
+		// TODO: planner commands
+		// completers.add(new ArgumentCompleter(new StringsCompleter("add"), new
+		// StringsCompleter("release", "sprint", "user_story"), new
+		// NullCompleter()));
+
 		completers.add(new ArgumentCompleter(new StringsCompleter("back", "plan", "releases", "sprints", "user_stories", "backlog", "auto_plan"),
 				new NullCompleter()));
 
@@ -27,8 +32,6 @@ public class PlannerCompleterFactory {
 				new NullCompleter()));
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("show"), new StringsCompleter("plan"), new StringsCompleter("details"), new NullCompleter()));
-
-		completers.add(new ArgumentCompleter(new StringsCompleter("add"), new StringsCompleter("release", "sprint", "user_story"), new NullCompleter()));
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("move"), new StringsCompleter(UserStories.getAllNames(project.backlog)),
 				new StringsCompleter("to"), new StringsCompleter(Sprints.getAllNames(project)), new NullCompleter()));
