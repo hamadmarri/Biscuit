@@ -140,6 +140,8 @@ public class ListSprints implements Command {
 			byFiled = byAssignedEffort;
 		} else if (sortBy.equals(Sprint.fields[6])) {
 			byFiled = byVelocity;
+		} else {
+			return;
 		}
 
 		List<Sprint> sorted = sprints.stream().sorted(byFiled).collect(Collectors.toList());

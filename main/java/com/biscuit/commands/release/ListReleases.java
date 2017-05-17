@@ -38,8 +38,7 @@ public class ListReleases implements Command {
 	}
 
 
-	public ListReleases(Project porject, String title, boolean isFilter, String filterBy, boolean isSort,
-			String sortBy) {
+	public ListReleases(Project porject, String title, boolean isFilter, String filterBy, boolean isSort, String sortBy) {
 		super();
 		this.project = porject;
 		this.title = title;
@@ -69,12 +68,10 @@ public class ListReleases implements Command {
 
 		at.addRule();
 		if (!this.title.isEmpty()) {
-			at.addRow(null, null, null, null, null, this.title)
-					.setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c' });
+			at.addRow(null, null, null, null, null, this.title).setAlignment(new char[] { 'c', 'c', 'c', 'c', 'c', 'c' });
 			at.addRule();
 		}
-		at.addRow("Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort")
-				.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c' });
+		at.addRow("Name", "Description", "State", "Start Date", "Due Date", "Assigned Effort").setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c' });
 
 		if (releases.size() == 0) {
 			String message;
@@ -89,8 +86,7 @@ public class ListReleases implements Command {
 			for (Release r : releases) {
 				at.addRule();
 
-				at.addRow(r.name, r.description, r.state, DateService.getDateAsString(r.startDate),
-						DateService.getDateAsString(r.dueDate), r.assignedEffort)
+				at.addRow(r.name, r.description, r.state, DateService.getDateAsString(r.startDate), DateService.getDateAsString(r.dueDate), r.assignedEffort)
 						.setAlignment(new char[] { 'l', 'l', 'c', 'c', 'c', 'c' });
 			} // for
 		}
@@ -137,6 +133,8 @@ public class ListReleases implements Command {
 			byFiled = byDueDate;
 		} else if (sortBy.equals(Release.fields[5])) {
 			byFiled = byAssignedEffort;
+		} else {
+			return;
 		}
 
 		List<Release> sorted = releases.stream().sorted(byFiled).collect(Collectors.toList());
@@ -159,10 +157,8 @@ public class ListReleases implements Command {
 	private void doFilter(List<Release> releases) {
 		List<Release> filtered = releases.stream()
 				.filter(r -> r.name.toLowerCase().contains(filterBy) || r.description.toLowerCase().contains(filterBy)
-						|| r.state.toString().toLowerCase().contains(filterBy)
-						|| DateService.getDateAsString(r.startDate).toLowerCase().contains(filterBy)
-						|| DateService.getDateAsString(r.dueDate).toLowerCase().contains(filterBy)
-						|| String.valueOf(r.assignedEffort).contains(filterBy))
+						|| r.state.toString().toLowerCase().contains(filterBy) || DateService.getDateAsString(r.startDate).toLowerCase().contains(filterBy)
+						|| DateService.getDateAsString(r.dueDate).toLowerCase().contains(filterBy) || String.valueOf(r.assignedEffort).contains(filterBy))
 				.collect(Collectors.toList());
 		releases.clear();
 		releases.addAll(filtered);

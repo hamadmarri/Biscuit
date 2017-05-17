@@ -193,6 +193,8 @@ public class ListUserStories implements Command {
 			byFiled = byTasks;
 		} else if (sortBy.equals(UserStory.fields[8])) {
 			byFiled = byPoints;
+		} else {
+			return;
 		}
 
 		List<UserStory> sorted = userStories.stream().sorted(byFiled).collect(Collectors.toList());

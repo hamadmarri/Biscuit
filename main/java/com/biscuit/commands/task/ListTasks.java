@@ -137,6 +137,8 @@ public class ListTasks implements Command {
 			byFiled = byDueDate;
 		} else if (sortBy.equals(Task.fields[6])) {
 			byFiled = byTime;
+		} else {
+			return;
 		}
 
 		List<Task> sorted = tasks.stream().sorted(byFiled).collect(Collectors.toList());
