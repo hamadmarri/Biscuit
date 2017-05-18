@@ -10,6 +10,7 @@ public class ProjectHelp extends UniversalHelp {
 		at.addRow(null, "Project Commands").setAlignment(new char[] { 'c', 'c' });
 		at.addRule();
 
+		at.addRow("show", "Show project information").setAlignment(new char[] { 'l', 'l' });
 		at.addRow("releases", "List all releases").setAlignment(new char[] { 'l', 'l' });
 		at.addRow("sprints", "List all sprints").setAlignment(new char[] { 'l', 'l' });
 		at.addRow("user_stories", "List all user stories").setAlignment(new char[] { 'l', 'l' });
@@ -17,9 +18,8 @@ public class ProjectHelp extends UniversalHelp {
 		at.addRow("plan", "Show plan in short form as a tree").setAlignment(new char[] { 'l', 'l' });
 		at.addRow("plan details", "Show plan in details in a table").setAlignment(new char[] { 'l', 'l' });
 		at.addRow("backlog", "List user stories in the backlog").setAlignment(new char[] { 'l', 'l' });
-		at.addRow("show", "Show current project information").setAlignment(new char[] { 'l', 'l' });
 		at.addRow("show backlog",
-				"Similar to backlog, List user stories in the backlog\n" + "Optional: (filter) to filter out the results (ex. show backlog filter a_string)\n"
+				"Similar to backlog, list user stories in the backlog\n" + "Optional: (filter) to filter out the results (ex. show backlog filter a_string)\n"
 						+ "Optional: (sort) to sort the results based on a chosen column (ex. show backlog sort column_name)\n"
 						+ "          use TAB to autocomplete column names\n"
 						+ "          repeating show backlog command with sort option toggles order between ASC and DESC\n")

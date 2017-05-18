@@ -10,7 +10,7 @@ import com.biscuit.commands.Command;
 import com.biscuit.factories.DateCompleter;
 import com.biscuit.models.Project;
 import com.biscuit.models.Release;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 
 import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
@@ -38,7 +38,7 @@ public class AddRelease implements Command {
 
 		setDescription(description);
 
-		release.state = State.CREATED;
+		release.state = Status.CREATED;
 		release.startDate = new Date(0);
 		release.dueDate = new Date(0);
 

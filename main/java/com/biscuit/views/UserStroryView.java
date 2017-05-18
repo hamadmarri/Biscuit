@@ -3,6 +3,7 @@ package com.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.biscuit.commands.help.UserStoryHelp;
 import com.biscuit.commands.task.AddTaskToUserStory;
 import com.biscuit.commands.task.ListTasks;
 import com.biscuit.commands.userStory.ChangeStatusUserStory;
@@ -11,7 +12,7 @@ import com.biscuit.commands.userStory.ShowUserStory;
 import com.biscuit.factories.UserStoryCompleterFactory;
 import com.biscuit.models.Task;
 import com.biscuit.models.UserStory;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 import com.biscuit.models.services.Finder.Tasks;
 
 import jline.console.completer.Completer;
@@ -69,8 +70,8 @@ public class UserStroryView extends View {
 
 	private boolean execute2Keywords(String[] words) throws IOException {
 		if (words[0].equals("change_status_to")) {
-			if (State.values.contains(words[1])) {
-				(new ChangeStatusUserStory(userStory, State.valueOf(words[1].toUpperCase()))).execute();
+			if (Status.values.contains(words[1])) {
+				(new ChangeStatusUserStory(userStory, Status.valueOf(words[1].toUpperCase()))).execute();
 				return true;
 			}
 		} else if (words[0].equals("add")) {
@@ -99,6 +100,8 @@ public class UserStroryView extends View {
 		} else if (words[0].equals("tasks")) {
 			(new ListTasks(userStory, "")).execute();
 			return true;
+		} else if (words[0].equals("help")) {
+			return (new UserStoryHelp()).execute();
 		}
 
 		return false;

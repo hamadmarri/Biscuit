@@ -3,6 +3,7 @@ package com.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.biscuit.commands.help.PlannerHelp;
 import com.biscuit.commands.planner.MoveSprintToRelease;
 import com.biscuit.commands.planner.MoveUserStoryToSprint;
 import com.biscuit.commands.planner.ShowPlan;
@@ -69,6 +70,8 @@ public class PlannerView extends View {
 		} else if (words[0].equals("plan")) {
 			(new ShowPlan(project)).execute();
 			return true;
+		} else if (words[0].equals("help")) {
+			return (new PlannerHelp()).execute();
 		}
 
 		return false;

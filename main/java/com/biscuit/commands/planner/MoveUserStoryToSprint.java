@@ -9,7 +9,7 @@ import com.biscuit.models.Project;
 import com.biscuit.models.Release;
 import com.biscuit.models.Sprint;
 import com.biscuit.models.UserStory;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 import com.biscuit.models.services.Finder.Releases;
 import com.biscuit.models.services.Finder.Sprints;
 import com.biscuit.models.services.Finder.UserStories;
@@ -56,7 +56,7 @@ public class MoveUserStoryToSprint implements Command {
 		s.userStories.add(us);
 
 		// change state to planned
-		us.state = State.PLANNED;
+		us.state = Status.PLANNED;
 
 		// make planned date = today
 		us.plannedDate = new Date();

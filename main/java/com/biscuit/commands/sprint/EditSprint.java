@@ -9,7 +9,7 @@ import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
 import com.biscuit.factories.DateCompleter;
 import com.biscuit.models.Sprint;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 import com.biscuit.models.services.DateService;
 
 import jline.console.ConsoleReader;
@@ -205,7 +205,7 @@ public class EditSprint implements Command {
 		String preload = s.state.toString().toLowerCase();
 		String state;
 		Completer oldCompleter = (Completer) reader.getCompleters().toArray()[0];
-		Completer stateCompleter = new ArgumentCompleter(new StringsCompleter(State.values), new NullCompleter());
+		Completer stateCompleter = new ArgumentCompleter(new StringsCompleter(Status.values), new NullCompleter());
 
 		reader.removeCompleter(oldCompleter);
 		reader.addCompleter(stateCompleter);
@@ -215,12 +215,12 @@ public class EditSprint implements Command {
 
 		state = reader.readLine().trim();
 
-		while (!State.values.contains(state)) {
+		while (!Status.values.contains(state)) {
 			System.out.println(ColorCodes.RED + "invalid state, hit tab for auto-complete" + ColorCodes.RESET);
 			state = reader.readLine().trim();
 		}
 
-		s.state = State.valueOf(state.toUpperCase());
+		s.state = Status.valueOf(state.toUpperCase());
 
 		reader.removeCompleter(stateCompleter);
 		reader.addCompleter(oldCompleter);

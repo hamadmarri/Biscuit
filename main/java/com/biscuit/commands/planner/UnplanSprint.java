@@ -7,7 +7,7 @@ import com.biscuit.commands.Command;
 import com.biscuit.models.Project;
 import com.biscuit.models.Release;
 import com.biscuit.models.Sprint;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 import com.biscuit.models.services.Finder.Releases;
 import com.biscuit.models.services.Finder.Sprints;
 
@@ -48,7 +48,7 @@ public class UnplanSprint implements Command {
 		r.sprints.remove(s);
 
 		// change state to unplanned
-		s.state = State.UNPLANNED;
+		s.state = Status.UNPLANNED;
 
 		// update release assigned effort
 		r.assignedEffort -= s.assignedEffort;

@@ -10,7 +10,7 @@ import com.biscuit.commands.Command;
 import com.biscuit.factories.DateCompleter;
 import com.biscuit.models.Project;
 import com.biscuit.models.Sprint;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 
 import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
@@ -38,7 +38,7 @@ public class AddSprint implements Command {
 
 		setDescription(description);
 
-		sprint.state = State.CREATED;
+		sprint.state = Status.CREATED;
 		sprint.startDate = new Date(0);
 		sprint.dueDate = new Date(0);
 

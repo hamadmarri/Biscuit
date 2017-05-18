@@ -10,7 +10,7 @@ import com.biscuit.models.Project;
 import com.biscuit.models.Release;
 import com.biscuit.models.Sprint;
 import com.biscuit.models.UserStory;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 import com.biscuit.models.services.Finder.Sprints;
 
 import jline.console.ConsoleReader;
@@ -52,7 +52,7 @@ public class UnplanAll implements Command {
 				usItr.remove();
 
 				// change state to unplanned
-				us.state = State.UNPLANNED;
+				us.state = Status.UNPLANNED;
 
 				// update sprint assigned effort
 				s.assignedEffort -= us.points;
@@ -81,7 +81,7 @@ public class UnplanAll implements Command {
 				sItr.remove();
 
 				// change state to unplanned
-				s.state = State.UNPLANNED;
+				s.state = Status.UNPLANNED;
 
 				// update release assigned effort
 				r.assignedEffort -= s.assignedEffort;

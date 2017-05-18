@@ -3,6 +3,7 @@ package com.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.biscuit.commands.help.SprintHelp;
 import com.biscuit.commands.sprint.ChangeStatusSprint;
 import com.biscuit.commands.sprint.EditSprint;
 import com.biscuit.commands.sprint.ShowSprint;
@@ -11,7 +12,7 @@ import com.biscuit.commands.userStory.ListUserStories;
 import com.biscuit.factories.SprintCompleterFactory;
 import com.biscuit.models.Sprint;
 import com.biscuit.models.UserStory;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 import com.biscuit.models.services.Finder.UserStories;
 
 import jline.console.completer.Completer;
@@ -66,8 +67,8 @@ public class SprintView extends View {
 
 	private boolean execute2Keywords(String[] words) throws IOException {
 		if (words[0].equals("change_status_to")) {
-			if (State.values.contains(words[1])) {
-				(new ChangeStatusSprint(sprint, State.valueOf(words[1].toUpperCase()))).execute();
+			if (Status.values.contains(words[1])) {
+				(new ChangeStatusSprint(sprint, Status.valueOf(words[1].toUpperCase()))).execute();
 				return true;
 			}
 		} else if (words[0].equals("list")) {
@@ -111,6 +112,8 @@ public class SprintView extends View {
 		} else if (words[0].equals("user_stories")) {
 			(new ListUserStories(sprint, sprint.name + " (User Stories)")).execute();
 			return true;
+		} else if (words[0].equals("help")) {
+			return (new SprintHelp()).execute();
 		}
 		return false;
 	}

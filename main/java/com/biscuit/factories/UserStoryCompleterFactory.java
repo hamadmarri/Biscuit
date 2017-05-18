@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.biscuit.models.UserStory;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 import com.biscuit.models.services.Finder.Tasks;
 
 import jline.console.completer.ArgumentCompleter;
@@ -56,7 +56,7 @@ public class UserStoryCompleterFactory {
 		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter("task"), new StringsCompleter(Tasks.getAllNames(userStory)),
 				new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("change_status_to"), new StringsCompleter(State.values), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("change_status_to"), new StringsCompleter(Status.values), new NullCompleter()));
 
 		return completers;
 	}

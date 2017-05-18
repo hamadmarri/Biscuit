@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 
 public class Release {
 
@@ -17,7 +17,7 @@ public class Release {
 	// info
 	public String name;
 	public String description;
-	public State state;
+	public Status state;
 	public Date startDate;
 	public Date dueDate;
 	public int assignedEffort;

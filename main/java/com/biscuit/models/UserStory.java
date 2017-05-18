@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.biscuit.models.enums.BusinessValue;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 
 public class UserStory {
 
@@ -17,7 +17,7 @@ public class UserStory {
 
 	public String title;
 	public String description;
-	public State state;
+	public Status state;
 	public BusinessValue businessValue;
 	public Date initiatedDate = null;
 	public Date plannedDate = null;

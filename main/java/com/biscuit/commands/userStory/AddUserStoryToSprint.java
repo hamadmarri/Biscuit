@@ -9,7 +9,7 @@ import com.biscuit.models.Sprint;
 import com.biscuit.models.UserStory;
 import com.biscuit.models.enums.BusinessValue;
 import com.biscuit.models.enums.Points;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 
 import jline.console.ConsoleReader;
 import jline.console.completer.ArgumentCompleter;
@@ -39,7 +39,7 @@ public class AddUserStoryToSprint implements Command {
 
 		setDescription(description);
 
-		userStory.state = State.OPEN;
+		userStory.state = Status.OPEN;
 		setBusinessValue();
 		setPoints();
 		userStory.initiatedDate = new Date();

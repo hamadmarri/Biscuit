@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.biscuit.models.Sprint;
 import com.biscuit.models.UserStory;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 import com.biscuit.models.services.Finder.UserStories;
 
 import jline.console.completer.ArgumentCompleter;
@@ -34,7 +34,7 @@ public class SprintCompleterFactory {
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("add"), new StringsCompleter("user_story"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("change_status_to"), new StringsCompleter(State.values), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("change_status_to"), new StringsCompleter(Status.values), new NullCompleter()));
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("go_to"), new StringsCompleter(UserStories.getAllNames(sprint)), new NullCompleter()));
 

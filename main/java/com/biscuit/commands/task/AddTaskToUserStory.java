@@ -8,7 +8,7 @@ import com.biscuit.commands.Command;
 import com.biscuit.models.Project;
 import com.biscuit.models.Task;
 import com.biscuit.models.UserStory;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 
 import jline.console.ConsoleReader;
 import jline.console.completer.ArgumentCompleter;
@@ -38,7 +38,7 @@ public class AddTaskToUserStory implements Command {
 
 		setTitle();
 		setDescription(description);
-		task.state = State.OPEN;
+		task.state = Status.OPEN;
 		setTime();
 		task.initiatedDate = new Date();
 		task.plannedDate = new Date(0);

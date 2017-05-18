@@ -3,6 +3,7 @@ package com.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.biscuit.commands.help.BacklogHelp;
 import com.biscuit.commands.userStory.AddUserStoryToBacklog;
 import com.biscuit.commands.userStory.ListUserStories;
 import com.biscuit.factories.BacklogCompleterFactory;
@@ -96,6 +97,8 @@ public class BacklogView extends View {
 		if (words[0].equals("user_stories")) {
 			(new ListUserStories(backlog, "Backlog (User Stories)")).execute();
 			return true;
+		} else if (words[0].equals("help")) {
+			return (new BacklogHelp()).execute();
 		}
 
 		return false;

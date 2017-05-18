@@ -5,15 +5,15 @@ import java.io.IOException;
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
 import com.biscuit.models.UserStory;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 
 public class ChangeStatusUserStory implements Command {
 
 	UserStory us = null;
-	State state = null;
+	Status state = null;
 
 
-	public ChangeStatusUserStory(UserStory us, State state) {
+	public ChangeStatusUserStory(UserStory us, Status state) {
 		super();
 		this.us = us;
 		this.state = state;
@@ -23,7 +23,7 @@ public class ChangeStatusUserStory implements Command {
 	@Override
 	public boolean execute() throws IOException {
 
-		State oldState = us.state;
+		Status oldState = us.state;
 
 		us.state = state;
 

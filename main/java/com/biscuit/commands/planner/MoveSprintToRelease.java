@@ -7,7 +7,7 @@ import com.biscuit.commands.Command;
 import com.biscuit.models.Project;
 import com.biscuit.models.Release;
 import com.biscuit.models.Sprint;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 import com.biscuit.models.services.Finder.Releases;
 import com.biscuit.models.services.Finder.Sprints;
 
@@ -50,7 +50,7 @@ public class MoveSprintToRelease implements Command {
 		r.sprints.add(s);
 
 		// change state to planned
-		s.state = State.PLANNED;
+		s.state = Status.PLANNED;
 
 		// update release assigned effort
 		r.assignedEffort += s.assignedEffort;

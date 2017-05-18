@@ -3,7 +3,9 @@ package com.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.biscuit.commands.help.ReleasesHelp;
 import com.biscuit.commands.release.AddRelease;
+import com.biscuit.commands.release.ListReleases;
 import com.biscuit.factories.ReleasesCompleterFactory;
 import com.biscuit.models.Project;
 import com.biscuit.models.Release;
@@ -30,9 +32,23 @@ public class ReleasesView extends View {
 
 	@Override
 	boolean executeCommand(String[] words) throws IOException {
-		if (words.length == 2) {
+		if (words.length == 1) {
+			return execute1Keywords(words);
+		} else if (words.length == 2) {
 			return execute2Keywords(words);
 		}
+		return false;
+	}
+
+
+	private boolean execute1Keywords(String[] words) throws IOException {
+		if (words[0].equals("releases")) {
+			(new ListReleases(project, "Releases")).execute();
+			return true;
+		} else if (words[0].equals("help")) {
+			return (new ReleasesHelp()).execute();
+		}
+
 		return false;
 	}
 
@@ -52,7 +68,7 @@ public class ReleasesView extends View {
 					return false;
 				}
 
-//				r.project = project;
+				// r.project = project;
 
 				ReleaseView rv = new ReleaseView(this, r);
 				rv.view();

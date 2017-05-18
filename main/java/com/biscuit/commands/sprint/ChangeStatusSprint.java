@@ -5,14 +5,14 @@ import java.io.IOException;
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
 import com.biscuit.models.Sprint;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 
 public class ChangeStatusSprint implements Command {
 	Sprint s = null;
-	State state = null;
+	Status state = null;
 
 
-	public ChangeStatusSprint(Sprint s, State state) {
+	public ChangeStatusSprint(Sprint s, Status state) {
 		super();
 		this.s = s;
 		this.state = state;
@@ -22,7 +22,7 @@ public class ChangeStatusSprint implements Command {
 	@Override
 	public boolean execute() throws IOException {
 
-		State oldState = s.state;
+		Status oldState = s.state;
 
 		s.state = state;
 

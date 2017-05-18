@@ -229,7 +229,14 @@ public class ProjectView extends View {
 			(new ListReleases(project, "Releases")).execute();
 			return true;
 		} else if (words[0].equals("sprints")) {
-			(new ListSprints(project, "Sprints")).execute();
+
+			for (Release r : project.releases) {
+				if (!r.sprints.isEmpty()) {
+					(new ListSprints(r, "Release: " + r.name + " -> Sprints")).execute();
+				}
+			}
+
+			(new ListSprints(project, "Unplanned Sprints")).execute();
 			return true;
 		} else if (words[0].equals("user_stories")) {
 			(new ListUserStories(UserStories.getAll(project), "All User Stories")).execute();

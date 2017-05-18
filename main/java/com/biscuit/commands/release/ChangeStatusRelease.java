@@ -5,14 +5,14 @@ import java.io.IOException;
 import com.biscuit.ColorCodes;
 import com.biscuit.commands.Command;
 import com.biscuit.models.Release;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 
 public class ChangeStatusRelease implements Command {
 	Release r = null;
-	State state = null;
+	Status state = null;
 
 
-	public ChangeStatusRelease(Release r, State state) {
+	public ChangeStatusRelease(Release r, Status state) {
 		super();
 		this.r = r;
 		this.state = state;
@@ -22,7 +22,7 @@ public class ChangeStatusRelease implements Command {
 	@Override
 	public boolean execute() throws IOException {
 
-		State oldState = r.state;
+		Status oldState = r.state;
 
 		r.state = state;
 

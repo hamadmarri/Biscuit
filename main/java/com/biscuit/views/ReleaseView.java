@@ -3,6 +3,7 @@ package com.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.biscuit.commands.help.ReleaseHelp;
 import com.biscuit.commands.release.ChangeStatusRelease;
 import com.biscuit.commands.release.EditRelease;
 import com.biscuit.commands.release.ShowRelease;
@@ -10,7 +11,7 @@ import com.biscuit.commands.sprint.ListSprints;
 import com.biscuit.factories.ReleaseCompleterFactory;
 import com.biscuit.models.Release;
 import com.biscuit.models.Sprint;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 import com.biscuit.models.services.Finder.Sprints;
 
 import jline.console.completer.Completer;
@@ -63,8 +64,8 @@ public class ReleaseView extends View {
 
 	private boolean execute2Keywords(String[] words) throws IOException {
 		if (words[0].equals("change_status_to")) {
-			if (State.values.contains(words[1])) {
-				(new ChangeStatusRelease(release, State.valueOf(words[1].toUpperCase()))).execute();
+			if (Status.values.contains(words[1])) {
+				(new ChangeStatusRelease(release, Status.valueOf(words[1].toUpperCase()))).execute();
 				return true;
 			}
 		} else if (words[0].equals("list")) {
@@ -102,6 +103,8 @@ public class ReleaseView extends View {
 		} else if (words[0].equals("sprints")) {
 			(new ListSprints(release, "Sprints")).execute();
 			return true;
+		} else if (words[0].equals("help")) {
+			return (new ReleaseHelp()).execute();
 		}
 		return false;
 	}

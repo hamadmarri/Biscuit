@@ -3,9 +3,12 @@ package com.biscuit.views;
 import java.io.IOException;
 import java.util.List;
 
+import com.biscuit.commands.help.SprintsHelp;
 import com.biscuit.commands.sprint.AddSprint;
+import com.biscuit.commands.sprint.ListSprints;
 import com.biscuit.factories.SprintsCompleterFactory;
 import com.biscuit.models.Project;
+import com.biscuit.models.Release;
 import com.biscuit.models.Sprint;
 import com.biscuit.models.services.Finder.Sprints;
 
@@ -30,9 +33,29 @@ public class SprintsView extends View {
 
 	@Override
 	boolean executeCommand(String[] words) throws IOException {
-		if (words.length == 2) {
+		if (words.length == 1) {
+			return execute1Keywords(words);
+		} else if (words.length == 2) {
 			return execute2Keywords(words);
 		}
+		return false;
+	}
+
+
+	private boolean execute1Keywords(String[] words) throws IOException {
+		if (words[0].equals("sprints")) {
+			for (Release r : project.releases) {
+				if (!r.sprints.isEmpty()) {
+					(new ListSprints(r, "Release: " + r.name + " -> Sprints")).execute();
+				}
+			}
+
+			(new ListSprints(project, "Unplanned Sprints")).execute();
+			return true;
+		} else if (words[0].equals("help")) {
+			return (new SprintsHelp()).execute();
+		}
+
 		return false;
 	}
 
@@ -52,7 +75,7 @@ public class SprintsView extends View {
 					return false;
 				}
 
-//				s.project = project;
+				// s.project = project;
 
 				SprintView sv = new SprintView(this, s);
 				sv.view();

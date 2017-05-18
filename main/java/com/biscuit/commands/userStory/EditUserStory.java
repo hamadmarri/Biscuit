@@ -11,7 +11,7 @@ import com.biscuit.factories.DateCompleter;
 import com.biscuit.models.UserStory;
 import com.biscuit.models.enums.BusinessValue;
 import com.biscuit.models.enums.Points;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 import com.biscuit.models.services.DateService;
 
 import jline.console.ConsoleReader;
@@ -309,7 +309,7 @@ public class EditUserStory implements Command {
 		String preload = userStory.state.toString().toLowerCase();
 		String state;
 		Completer oldCompleter = (Completer) reader.getCompleters().toArray()[0];
-		Completer stateCompleter = new ArgumentCompleter(new StringsCompleter(State.values), new NullCompleter());
+		Completer stateCompleter = new ArgumentCompleter(new StringsCompleter(Status.values), new NullCompleter());
 
 		reader.removeCompleter(oldCompleter);
 		reader.addCompleter(stateCompleter);
@@ -319,12 +319,12 @@ public class EditUserStory implements Command {
 
 		state = reader.readLine().trim();
 
-		while (!State.values.contains(state)) {
+		while (!Status.values.contains(state)) {
 			System.out.println(ColorCodes.RED + "invalid state, hit tab for auto-complete" + ColorCodes.RESET);
 			state = reader.readLine().trim();
 		}
 
-		userStory.state = State.valueOf(state.toUpperCase());
+		userStory.state = Status.valueOf(state.toUpperCase());
 
 		reader.removeCompleter(stateCompleter);
 		reader.addCompleter(oldCompleter);

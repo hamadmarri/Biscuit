@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.biscuit.models.Project;
-import com.biscuit.models.Release;
 import com.biscuit.models.services.Finder;
 
 import jline.console.completer.ArgumentCompleter;
@@ -42,7 +41,7 @@ public class SprintsCompleterFactory {
 		// new StringsCompleter("all"), new StringsCompleter("sort"),
 		// new StringsCompleter(Release.fields), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("back"), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("back", "sprints"), new NullCompleter()));
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("add"), new StringsCompleter("sprint"), new NullCompleter()));
 

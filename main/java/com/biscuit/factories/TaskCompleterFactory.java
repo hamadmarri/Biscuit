@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.biscuit.models.Task;
-import com.biscuit.models.enums.State;
+import com.biscuit.models.enums.Status;
 
 import jline.console.completer.ArgumentCompleter;
 import jline.console.completer.Completer;
@@ -23,7 +23,7 @@ public class TaskCompleterFactory {
 
 		completers.add(new ArgumentCompleter(new StringsCompleter("show", "edit", "back"), new NullCompleter()));
 
-		completers.add(new ArgumentCompleter(new StringsCompleter("change_status_to"), new StringsCompleter(State.values), new NullCompleter()));
+		completers.add(new ArgumentCompleter(new StringsCompleter("change_status_to"), new StringsCompleter(Status.values), new NullCompleter()));
 
 		return completers;
 	}
