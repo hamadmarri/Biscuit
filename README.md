@@ -704,5 +704,6 @@ The following libraries are used in this project
 * [ColorCodes.java](https://gist.github.com/nathan-fiscaletti/9dc252d30b51df7d710a)
 
 
-
+# Donate
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RZC5CWSCTMB8E)
 
