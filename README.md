@@ -3,7 +3,7 @@ Is a free command line interface tool for software project management. This proj
 
 
 # Features
-* Autocompelete ability using TAB
+* Autocompelete ability
 * Coloured console output
 * Dashboard view
 * Adding, editing, and removing projects
