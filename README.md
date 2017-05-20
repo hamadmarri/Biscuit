@@ -49,36 +49,10 @@ java -jar biscuit.jar
 
 
 
-# Example
-[Usage Example](https://github.com/hamadmarri/Biscuit/wiki/Usage-Example)
-
-
-# Commands
-[Commands](https://github.com/hamadmarri/Biscuit/wiki/Commands)
-
-
-# Future work
-* Time logging
-* Team members
-  * Groups
-  * Roles
-* Contacts
-* Redo and Undo commands
-* Labelling
-* Attachments
-* Alerts system
-* Search in projects
-* Print Reports
-* Plotting graphs
-  * Burn down chart
-  * Process control? maybe?
-  * cumulative flow
-  * cycle time distribution? maybe?
-* Enhance listing
-  * list past, future, current, and closed release, sprints etc.. 
-* Adding bugs and tests
-* Print summary for project, release, sprints, ect..
-* Auto plan where user specifies velocity, start date, due date, sprint duration, release duration, and priority first
+# Documentation
+* [Usage Example](https://github.com/hamadmarri/Biscuit/wiki/Usage-Example)
+* [Commands](https://github.com/hamadmarri/Biscuit/wiki/Commands)
+* [Future work](https://github.com/hamadmarri/Biscuit/wiki/Future-work)
 
 
 # Credits
