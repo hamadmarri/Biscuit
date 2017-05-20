@@ -675,8 +675,8 @@ Go back to previous view (Project)
 # Future work
 * Time logging
 * Team members
- * Groups
- * Roles
+  * Groups
+  * Roles
 * Contacts
 * Redo and Undo commands
 * Labelling
@@ -685,12 +685,12 @@ Go back to previous view (Project)
 * Search in projects
 * Print Reports
 * Plotting graphs
- * Burn down chart
- * Process control? maybe?
- * cumulative flow
- * cycle time distribution? maybe?
+  * Burn down chart
+  * Process control? maybe?
+  * cumulative flow
+  * cycle time distribution? maybe?
 * Enhance listing
- * list past, future, current, and closed release, sprints etc.. 
+  * list past, future, current, and closed release, sprints etc.. 
 * Adding bugs and tests
 * Print summary for project, release, sprints, ect..
 * Auto plan where user specifies velocity, start date, due date, sprint duration, release duration, and priority first
