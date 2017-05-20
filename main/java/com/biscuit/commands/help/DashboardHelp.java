@@ -13,7 +13,7 @@ public class DashboardHelp extends UniversalHelp {
 		at.addRow("go_to", "Go to a project and open the project view (followed by a project name)").setAlignment(new char[] { 'l', 'l' });
 		at.addRow("go_to project", "Similar to 'go_to', it goes to a project and open the project view (followed by a project name)")
 				.setAlignment(new char[] { 'l', 'l' });
-		at.addRow("add project", "Creat a new project").setAlignment(new char[] { 'l', 'l' });
+		at.addRow("add project", "Create a new project").setAlignment(new char[] { 'l', 'l' });
 		at.addRow("edit project", "Edit project (followed by a project name)").setAlignment(new char[] { 'l', 'l' });
 		at.addRow("remove project", "Remove or delete project (followed by a project name)").setAlignment(new char[] { 'l', 'l' });
 
