@@ -696,5 +696,13 @@ Go back to previous view (Project)
 * Auto plan where user specifies velocity, start date, due date, sprint duration, release duration, and priority first
 
 
+# Credits
+The following libraries are used in this project  
+* [jline 2.12](https://github.com/jline/jline2)
+* [asciitable 0.2.5](https://github.com/vdmeer/asciitable)
+* [gson 2.8.0](https://github.com/google/gson)
+* [ColorCodes.java](https://gist.github.com/nathan-fiscaletti/9dc252d30b51df7d710a)
+
+
 
 
