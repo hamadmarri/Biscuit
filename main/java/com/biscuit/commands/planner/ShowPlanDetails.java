@@ -192,8 +192,8 @@ public class ShowPlanDetails implements Command {
 
 		for (Release r : project.releases) {
 			replace = "_RELEASE: " + r.name + "_";
-			
-			tableString = tableString.replaceFirst(replace, ColorCodes.PURPLE + "RELEASE: " + r.name + ColorCodes.RESET);
+
+			tableString = tableString.replaceFirst(replace, ColorCodes.PURPLE + " RELEASE: " + r.name + " " + ColorCodes.RESET);
 
 			for (Sprint s : r.sprints) {
 				replace = r.name + " -> Sprint: " + s.name;

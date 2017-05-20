@@ -27,6 +27,9 @@ public class AddProject implements Command {
 		StringBuilder description = new StringBuilder();
 		String line;
 		String prompt = reader.getPrompt();
+		
+		project.backlog.project = project;
+		
 		reader.setPrompt(ColorCodes.BLUE + "project name: " + ColorCodes.RESET);
 		project.name = reader.readLine();
 		reader.setPrompt(ColorCodes.BLUE + "\ndescription: " + ColorCodes.YELLOW + "\n(\\q to end writing)\n" + ColorCodes.RESET);

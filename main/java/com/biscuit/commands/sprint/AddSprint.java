@@ -34,6 +34,7 @@ public class AddSprint implements Command {
 		StringBuilder description = new StringBuilder();
 		String prompt = reader.getPrompt();
 
+		sprint.project = project;
 		setName();
 
 		setDescription(description);

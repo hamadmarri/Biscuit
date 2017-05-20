@@ -34,6 +34,7 @@ public class AddRelease implements Command {
 		StringBuilder description = new StringBuilder();
 		String prompt = reader.getPrompt();
 
+		release.project = project;
 		setName();
 
 		setDescription(description);

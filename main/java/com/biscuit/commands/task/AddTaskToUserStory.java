@@ -36,6 +36,7 @@ public class AddTaskToUserStory implements Command {
 		StringBuilder description = new StringBuilder();
 		String prompt = reader.getPrompt();
 
+		task.project = project;
 		setTitle();
 		setDescription(description);
 		task.state = Status.OPEN;
@@ -60,14 +61,12 @@ public class AddTaskToUserStory implements Command {
 		String line;
 		Completer oldCompleter = (Completer) reader.getCompleters().toArray()[0];
 
-		Completer timeCompleter = new ArgumentCompleter(new StringsCompleter("1", "1.5", "2", "2.25", "3"),
-				new NullCompleter());
+		Completer timeCompleter = new ArgumentCompleter(new StringsCompleter("1", "1.5", "2", "2.25", "3"), new NullCompleter());
 
 		reader.removeCompleter(oldCompleter);
 		reader.addCompleter(timeCompleter);
 
-		reader.setPrompt(ColorCodes.BLUE + "\nestimated time (in hours):\n" + ColorCodes.YELLOW
-				+ "(hit Tab to see an example)\n" + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "\nestimated time (in hours):\n" + ColorCodes.YELLOW + "(hit Tab to see an example)\n" + ColorCodes.RESET);
 
 		while ((line = reader.readLine()) != null) {
 			line = line.trim();
@@ -87,8 +86,7 @@ public class AddTaskToUserStory implements Command {
 
 	private void setDescription(StringBuilder description) throws IOException {
 		String line;
-		reader.setPrompt(
-				ColorCodes.BLUE + "\ndescription:\n" + ColorCodes.YELLOW + "(\\q to end writing)\n" + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "\ndescription:\n" + ColorCodes.YELLOW + "(\\q to end writing)\n" + ColorCodes.RESET);
 
 		while ((line = reader.readLine()) != null) {
 			if (line.equals("\\q")) {

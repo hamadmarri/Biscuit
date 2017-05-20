@@ -33,6 +33,8 @@ public class Project {
 
 	public void updateChildrenReferences() {
 
+		this.backlog.project = this;
+
 		for (Release r : releases) {
 			r.project = this;
 			updateSprintReferences(r.sprints);

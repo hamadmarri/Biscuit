@@ -35,6 +35,7 @@ public class AddUserStoryToBacklog implements Command {
 		StringBuilder description = new StringBuilder();
 		String prompt = reader.getPrompt();
 
+		userStory.project = project;
 		setTitle();
 
 		setDescription(description);
@@ -72,8 +73,7 @@ public class AddUserStoryToBacklog implements Command {
 		reader.removeCompleter(oldCompleter);
 		reader.addCompleter(pointsCompleter);
 
-		reader.setPrompt(ColorCodes.BLUE + "\npoints:\n" + ColorCodes.YELLOW + "(hit Tab to see an example)\n"
-				+ ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "\npoints:\n" + ColorCodes.YELLOW + "(hit Tab to see an example)\n" + ColorCodes.RESET);
 
 		while ((line = reader.readLine()) != null) {
 			line = line.trim();
@@ -100,14 +100,12 @@ public class AddUserStoryToBacklog implements Command {
 		// businessValues.add(bv.name().toLowerCase());
 		// }
 
-		Completer businessValuesCompleter = new ArgumentCompleter(new StringsCompleter(BusinessValue.values),
-				new NullCompleter());
+		Completer businessValuesCompleter = new ArgumentCompleter(new StringsCompleter(BusinessValue.values), new NullCompleter());
 
 		reader.removeCompleter(oldCompleter);
 		reader.addCompleter(businessValuesCompleter);
 
-		reader.setPrompt(ColorCodes.BLUE + "\nbusiness value:\n" + ColorCodes.YELLOW + "(hit Tab to see valid values)\n"
-				+ ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "\nbusiness value:\n" + ColorCodes.YELLOW + "(hit Tab to see valid values)\n" + ColorCodes.RESET);
 
 		while ((line = reader.readLine()) != null) {
 			line = line.trim().toUpperCase();
@@ -129,8 +127,7 @@ public class AddUserStoryToBacklog implements Command {
 
 	private void setDescription(StringBuilder description) throws IOException {
 		String line;
-		reader.setPrompt(
-				ColorCodes.BLUE + "\ndescription:\n" + ColorCodes.YELLOW + "(\\q to end writing)\n" + ColorCodes.RESET);
+		reader.setPrompt(ColorCodes.BLUE + "\ndescription:\n" + ColorCodes.YELLOW + "(\\q to end writing)\n" + ColorCodes.RESET);
 
 		while ((line = reader.readLine()) != null) {
 			if (line.equals("\\q")) {
