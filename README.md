@@ -50,7 +50,7 @@ java -jar biscuit.jar
 
 
 # Documentation
-* [wiki](https://github.com/hamadmarri/Biscuit/wiki)
+* [Wiki](https://github.com/hamadmarri/Biscuit/wiki)
 * [Usage Example](https://github.com/hamadmarri/Biscuit/wiki/Usage-Example)
 * [Commands](https://github.com/hamadmarri/Biscuit/wiki/Commands)
 * [Future work](https://github.com/hamadmarri/Biscuit/wiki/Future-work)
